@@ -10,7 +10,7 @@ buttons.forEach(button=>button.addEventListener('click',()=>{
 const dialog=document.querySelector('#visor-imagen');const image=document.querySelector('#visor-foto');
 if(!dialog||!image)return;
 document.querySelectorAll('.gallery-open').forEach(button=>button.addEventListener('click',()=>{
- image.src=button.dataset.src;image.alt=button.dataset.alt||'';
+ image.referrerPolicy='no-referrer';image.src=button.dataset.src;image.alt=button.dataset.alt||'';
  document.querySelector('#visor-titulo').textContent=button.dataset.caption||'Fotografía';
  document.querySelector('#visor-caption').textContent=button.dataset.alt||'';
  if(typeof dialog.showModal==='function')dialog.showModal();else dialog.setAttribute('open','');
