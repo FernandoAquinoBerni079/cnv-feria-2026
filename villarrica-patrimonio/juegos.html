@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Juego educativo de 10 preguntas sobre la historia y el patrimonio de Villarrica. No guarda datos." name="description"/>
+<title>Juego: Preguntas de Villarrica | Historia y Patrimonio</title>
+<link href="img/VHyP_logo.png" rel="icon" type="image/png"/>
+<link href="css/styles.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="index.html"><img alt="" height="34" src="img/VHyP_logo.png" width="34"/> <span>Villarrica: Historia y Patrimonio</span></a><nav aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="cronologia.html">Cronología</a><a href="lugares.html">Patrimonio</a><a href="galeria.html">Galería</a><a aria-current="page" href="juegos.html">Juegos</a><a href="fuentes.html">Fuentes</a></nav></header>
+<section class="page-head">
+<div class="hero-inner">
+<h1>Preguntas de Villarrica</h1>
+<p>Un juego educativo sobre la historia y la cultura de Villarrica.</p>
+</div>
+</section>
+<main id="contenido"><nav aria-label="Ruta de navegación" class="breadcrumb"><a href="index.html">Inicio</a><span aria-hidden="true">/</span><span>Juegos</span></nav>
+<section aria-labelledby="titulo-desafio" id="desafio">
+<h2 id="titulo-desafio">Ponga a prueba lo que sabe</h2>
+<p class="aviso">
+          Son 10 preguntas con 3 respuestas posibles cada una. Después de responder verá una
+          explicación. Las preguntas se basan en los datos de este sitio. El juego no pide ni guarda datos personales ni resultados.
+        </p>
+<noscript>
+<p class="aviso">Para jugar es necesario activar JavaScript en el navegador.</p>
+</noscript>
+<div class="juego" id="juego-app">
+<!-- Pantalla 1: inicio -->
+<div id="pantalla-inicio">
+<h3>¿Listo para el desafío?</h3>
+<p>Responda cada pregunta, aprenda de la explicación y consiga el mejor puntaje: de 0 a 10.</p>
+<button class="btn" id="btn-comenzar" type="button">Comenzar</button>
+</div>
+<!-- Pantalla 2: una pregunta por vez -->
+<div hidden="" id="pantalla-pregunta">
+<div class="juego-estado">
+<p id="juego-progreso-texto">Pregunta 1 de 10</p>
+<p>Puntaje: <strong id="juego-puntaje">0</strong></p>
+</div>
+<div aria-label="Progreso del juego" aria-valuemax="10" aria-valuemin="0" aria-valuenow="0" class="barra" id="barra" role="progressbar">
+<div class="barra-relleno" id="barra-relleno"></div>
+</div>
+<h3 class="pregunta" id="juego-pregunta" tabindex="-1"></h3>
+<div class="respuestas" id="juego-respuestas"></div>
+<div aria-live="polite" class="feedback" id="juego-feedback" role="status">
+<p class="fb-titulo" id="fb-titulo"></p>
+<p id="fb-explicacion"></p>
+</div>
+<button class="btn" hidden="" id="btn-siguiente" type="button">Siguiente pregunta</button>
+</div>
+<!-- Pantalla 3: resultado final -->
+<div hidden="" id="pantalla-resultado">
+<h3 id="resultado-titulo" tabindex="-1">Resultado final</h3>
+<p class="resultado-puntaje" id="resultado-puntaje">0 de 10</p>
+<p id="resultado-mensaje"></p>
+<button class="btn" id="btn-reiniciar" type="button">Volver a jugar</button>
+</div>
+</div>
+</section>
+<section class="cta"><h2>¿Querés conocer más antes de jugar?</h2><p>La cronología y la guía patrimonial te ayudan a responder las preguntas.</p><a class="btn" href="cronologia.html">Estudiar la cronología</a><a class="btn btn-outline" href="lugares.html">Ver el patrimonio</a></section></main>
+<footer class="site-footer"><p><strong>Proyecto estudiantil:</strong> Villarrica: Historia y Patrimonio · 1.º BTI · Colegio Nacional de Villarrica · Feria de Informática 2026.</p><p><strong>Equipo:</strong> Teili Luján Rivas Arévalos, Iara Abigail Melgarejo Zacarías y Alexander Nicolás Cáceres Acosta.</p><p><a href="fuentes.html">Fuentes de consulta</a> · <a href="galeria.html">Galería fotográfica</a> · <a href="juegos.html">Aprendé jugando</a></p></footer>
+<script defer="" src="js/juegos.js"></script>
+</body>
+</html>
