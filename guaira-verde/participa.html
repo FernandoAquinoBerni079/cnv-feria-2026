@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Participá | Guairá Verde</title>
+<link href="css/styles.css" rel="stylesheet"/>
+<meta content="Participá en acciones ambientales y desafío verde de siete días." name="description"/></head>
+<body>
+<nav aria-label="Navegación principal" class="menu-principal"><a class="logo" href="index.html">🌱 Guairá Verde</a><div class="menu-links"><a href="index.html">Inicio</a><a href="guaira.html">Nuestro Guairá</a><a href="aprende.html">Aprendé</a><a href="galeria.html">Galería</a><a aria-current="page" class="activo" href="participa.html">Participá</a><a href="juegos.html">Juegos (6)</a></div></nav>
+<header class="encabezado-pagina">
+<h1>Participá y aprendé</h1>
+<p>Conocé el impacto de algunos residuos y asumí un compromiso ambiental.</p>
+</header>
+<main class="contenedor">
+<section>
+<h2 class="titulo-seccion">Impacto de los materiales</h2>
+<div class="tabla-contenedor">
+<table class="tabla-ambiental">
+<thead><tr><th>Material</th><th>Tiempo aproximado de degradación</th><th>Alternativa ecológica</th></tr></thead>
+<tbody>
+<tr><td>Bolsa de plástico</td><td>Decenas a cientos de años</td><td>Bolsas de tela o reutilizables</td></tr>
+<tr><td>Botella de vidrio</td><td>Puede permanecer miles de años</td><td>Envases retornables</td></tr>
+<tr><td>Pilas y baterías</td><td>Varía según sus componentes</td><td>Pilas recargables y puntos de recolección</td></tr>
+<tr><td>Lata de aluminio</td><td>Decenas a cientos de años</td><td>Reciclar y reutilizar</td></tr>
+</tbody>
+</table>
+</div>
+<p class="nota">Los tiempos son estimaciones: pueden variar según el material y las condiciones ambientales.</p>
+</section>
+<section class="form-seccion">
+<h2 class="titulo-seccion">Sumate al compromiso</h2>
+<p class="nota">Esta es una actividad demostrativa. Tu respuesta se muestra solo en tu navegador: no se envía ni se guarda en un servidor.</p>
+<form class="form-compromiso" id="form-compromiso">
+<label for="nombre">Tu nombre</label>
+<input id="nombre" name="nombre" placeholder="Escribí tu nombre" required="" type="text"/>
+<label for="accion">Acción a la que te comprometés</label>
+<select id="accion" name="accion" required="">
+<option value="">Elegí una opción</option>
+<option value="Separar los residuos">Separar los residuos</option>
+<option value="Ahorrar energía">Apagar luces innecesarias</option>
+<option value="Ahorrar agua">Cerrar la canilla para ahorrar agua</option>
+<option value="Plantar árboles">Plantar y cuidar árboles</option>
+</select>
+<label for="mensaje">¿Por qué es importante para vos? (opcional)</label>
+<textarea id="mensaje" name="mensaje" placeholder="Escribí tu mensaje" rows="4"></textarea>
+<button class="btn-principal" type="submit">Enviar compromiso</button>
+<p aria-live="polite" class="respuesta" id="respuesta-form"></p>
+</form>
+</section>
+<section aria-labelledby="titulo-siete-dias" class="content-section desafio-semanal" id="desafio-semanal"><div class="section-heading"><div><span class="eyebrow">Actuá desde hoy</span><h2 id="titulo-siete-dias">🌱 Mi desafío verde de siete días</h2></div><p>Una acción diferente por día. Marcá cada desafío cuando lo hayas realizado y observá tu avance. No se envían datos a un servidor.</p></div><div class="challenge-app"><div class="challenge-head"><div><strong>Tu progreso ambiental</strong><p>Podés completar los retos a tu ritmo.</p></div><div class="challenge-count" id="challenge-count">0 de 7</div></div><progress id="challenge-progress" max="7" value="0">0 de 7</progress><div class="challenge-items" id="challenge-items"></div><div aria-live="polite" class="feedback" id="challenge-message" role="status">Empezá con el primer desafío. ¡Cada hábito suma!</div><div class="game-actions"><button class="btn-secundario" id="challenge-reset" type="button">Reiniciar actividad</button></div><p class="nota">Los tildes se guardan solo en este navegador mediante localStorage, si está disponible. No se solicitan nombres ni se comparten resultados.</p></div></section></main>
+<footer class="pie"><p><strong>Guairá Verde</strong> · Feria de Informática 2026 · 1.º BTI</p><p>Colegio Nacional de Villarrica · Proyecto educativo estudiantil</p><p><a href="fuentes.html">Fuentes, autorías y créditos fotográficos</a> · <a href="index.html">Volver al inicio</a></p></footer>
+<script src="js/participa.js"></script>
+<script src="js/desafio-semanal.js"></script></body>
+</html>

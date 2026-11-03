@@ -1,0 +1,101 @@
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f8f2;color:#203328;line-height:1.6}.menu-principal{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 7%;background:#174d35;color:white;flex-wrap:wrap}.logo{font-size:1.25rem;font-weight:bold;color:white;text-decoration:none}.menu-links{display:flex;gap:18px;flex-wrap:wrap}.menu-links a{color:white;text-decoration:none;padding:7px 10px;border-radius:7px}.menu-links a:hover,.menu-links a.activo{background:#2c7950}.hero{min-height:390px;padding:80px 8%;display:flex;align-items:center;background:linear-gradient(120deg,#164b34,#3c8d57);color:white}.hero-content{max-width:720px}.hero h1{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.1;margin:18px 0}.hero p{font-size:1.15rem;max-width:620px}.badge{display:inline-block;background:#d8f3dc;color:#174d35;padding:6px 13px;border-radius:30px;font-weight:bold}.contenedor{width:min(1100px,90%);margin:42px auto}.titulo-seccion{text-align:center;color:#1b603d;margin:35px 0 24px}.grid-tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}.tarjeta{background:white;padding:25px;border-radius:16px;box-shadow:0 5px 18px #173b2414;border:1px solid #e1eee3}.tarjeta h3,.tarjeta h2{color:#21613e}.destacado{border:2px solid #68a878}.icono{font-size:2.7rem}.btn-principal{display:inline-block;border:0;background:#287747;color:white;text-decoration:none;padding:12px 20px;border-radius:9px;font-weight:bold;cursor:pointer;margin-top:10px}.btn-principal:hover{background:#174d35}.bloque-llamado{text-align:center;background:#e0f1e3;padding:30px;border-radius:16px;margin-top:45px}.pie{text-align:center;background:#174d35;color:white;padding:22px;margin-top:50px}.pie p{margin:4px}.encabezado-pagina{text-align:center;padding:48px 6%;background:#e0f1e3;color:#174d35}.encabezado-pagina h1{margin:0;font-size:2.3rem}.tabla-contenedor{overflow-x:auto;background:white;border-radius:12px}.tabla-ambiental{width:100%;border-collapse:collapse;min-width:570px}.tabla-ambiental th,.tabla-ambiental td{padding:14px;text-align:left;border-bottom:1px solid #dce9de}.tabla-ambiental th{background:#246b43;color:white}.nota{font-size:.9rem;color:#586b5d}.form-seccion{max-width:650px;margin:45px auto}.form-compromiso{display:grid;gap:10px;background:white;padding:25px;border-radius:14px;box-shadow:0 5px 18px #173b2414}.form-compromiso input,.form-compromiso select,.form-compromiso textarea{width:100%;padding:12px;border:1px solid #bdcfc0;border-radius:8px;font:inherit}.form-compromiso label{font-weight:bold;margin-top:8px}.respuesta{color:#21613e;font-weight:bold;min-height:24px}.juego-card{text-align:center}.juego-panel{max-width:760px;background:white;padding:28px;border-radius:16px;box-shadow:0 5px 18px #173b2414;text-align:center}.palabras{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:18px}.palabra{padding:5px 10px;background:#e0f1e3;border-radius:7px}.palabra.encontrada{text-decoration:line-through;background:#bce2c4}.grid-sopa{display:grid;grid-template-columns:repeat(10,minmax(26px,1fr));gap:5px;max-width:460px;margin:20px auto}.celda-sopa{aspect-ratio:1;border:1px solid #9eb9a3;background:#f3f8f2;border-radius:5px;font-weight:bold;font-size:1rem;cursor:pointer}.celda-sopa.seleccionada{background:#8bc99a}.celda-sopa.encontrada{background:#287747;color:white}.opciones-trivia{display:grid;gap:10px;max-width:500px;margin:20px auto}.opciones-trivia button{padding:12px;border:1px solid #9eb9a3;border-radius:8px;background:#f3f8f2;cursor:pointer;font:inherit}.opciones-trivia button:hover{background:#e0f1e3}.opciones-trivia button:disabled{cursor:default}@media(max-width:600px){.menu-principal{justify-content:center}.hero{padding:55px 7%;min-height:330px}.grid-sopa{gap:3px}.celda-sopa{font-size:.85rem}}
+
+
+/* Los atributos hidden deben prevalecer sobre display de botones CSS. */
+[hidden]{display:none !important}
+/* V08: estilos complementarios; se conserva la identidad verde de la versión del grupo. */
+:root{--forest:#174d35;--green:#287747;--muted:#506454;--ring:#e0b75b}
+body{min-height:100vh;display:flex;flex-direction:column}
+main{flex:1}
+.menu-principal{position:relative;z-index:2}
+.menu-links a:focus-visible,.btn-principal:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--ring);outline-offset:3px}
+.menu-links a[aria-current="page"]{background:#2c7950}
+.btn-principal:disabled,.control:disabled{opacity:.6;cursor:not-allowed}
+.tarjeta img.foto-ambiental{width:100%;height:150px;display:block;object-fit:cover;border-radius:11px;margin-bottom:14px}
+.tarjeta .foto-leyenda{font-size:.78rem;line-height:1.45;color:#607866;margin:0 0 10px}
+.intro-texto{max-width:760px;margin:0 auto 24px;text-align:center;color:var(--muted)}
+.tarjeta .juego-num{font-size:.78rem;color:#2e7a49;font-weight:750;letter-spacing:.05em;text-transform:uppercase}
+.tarjeta .juego-icono{font-size:2.6rem;line-height:1.3;display:block;margin:5px 0 12px}
+.tarjeta.juego-card{display:flex;flex-direction:column;align-items:center}
+.tarjeta.juego-card p{flex:1}
+.juego-panel{max-width:800px;margin:36px auto;padding:32px;box-shadow:0 10px 30px #153b2812}
+.juego-panel h1{color:#174d35;margin:0 0 12px}
+.juego-panel p{line-height:1.55}
+.status{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;background:#ebf6ed;border-radius:10px;padding:10px 15px;margin:16px 0}
+.status strong{color:var(--forest)}
+.status progress{width:100%;height:11px;accent-color:var(--green)}
+.feedback{background:#eff8ef;border-left:4px solid var(--green);color:#164b34;padding:12px 14px;border-radius:8px;margin:15px 0;min-height:45px}
+.feedback:empty{display:none}
+.feedback.bad{background:#fff0ed;border-left-color:#b74936;color:#7f2f23}
+.feedback.good{background:#e5f5e9}
+.game-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:20px}
+.game-actions .btn-principal{margin-top:0}
+.btn-secundario{padding:11px 18px;border-radius:9px;border:2px solid #287747;color:#20643d;background:white;text-decoration:none;font-weight:bold;display:inline-block;cursor:pointer}
+.btn-secundario:hover{background:#e6f4e8}
+.opciones-trivia button{width:100%;text-align:left;padding:15px 16px;border:2px solid #b7d6be;background:#f4faf5}
+.opciones-trivia button.correcto{background:#d6f3df;border-color:#32834d;color:#124a29}
+.opciones-trivia button.incorrecto{background:#fce1dc;border-color:#b64838;color:#7e2e21}
+.palabras .palabra{font-weight:700}
+.celda-sopa{min-width:0;touch-action:manipulation;font-size:clamp(.65rem,2.5vw,1.05rem)}
+.grid-sopa{width:100%;max-width:470px;gap:4px}
+.celda-sopa.seleccionada{background:#b6ebc0;border-color:#1f7e42}
+.celda-sopa.encontrada{background:#216c41;color:white;border-color:#216c41}
+.pista{color:#536656;font-size:.92rem}
+.memory-board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-width:530px;margin:22px auto}
+.memory-card{aspect-ratio:1.4;display:flex;align-items:center;justify-content:center;border:2px solid #b9ddc3;background:#247247;border-radius:12px;cursor:pointer;color:white;font-size:clamp(1.5rem,6vw,2.6rem);transition:transform .12s ease}
+.memory-card:hover:not(:disabled){transform:translateY(-2px)}
+.memory-card.open,.memory-card.matched{background:#e5f5e7;color:#195b34}
+.memory-card.matched{border-color:#358a53;cursor:default}
+.big-item{font-size:clamp(1.12rem,4vw,1.55rem);font-weight:750;text-align:center;background:#edf7ef;padding:24px 15px;border-radius:14px;margin:20px 0}
+.bins,.true-false-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;max-width:650px;margin:18px auto}
+.bins button,.true-false-buttons button{font:inherit;padding:15px 8px;border:2px solid #acd1b4;border-radius:10px;background:#e8f5ec;color:#175333;font-weight:700;cursor:pointer}
+.bins button:hover:not(:disabled),.true-false-buttons button:hover:not(:disabled){background:#d1edda}
+.bins button:disabled,.true-false-buttons button:disabled{opacity:.65;cursor:default}
+.habits-list{display:grid;gap:10px;margin:20px auto;max-width:700px;text-align:left}
+.habit{display:flex;gap:14px;align-items:center;padding:14px;border:1px solid #c8dfce;border-radius:10px;background:#f5faf6;cursor:pointer}
+.habit input{width:21px;height:21px;accent-color:#247247;flex-shrink:0}
+.habit.good{border-color:#358a53;background:#e6f5e9}.habit.bad{border-color:#bf5a4b;background:#fcece8}
+.habit .habit-check{margin-left:auto;font-weight:800}
+.source-note{font-size:.85rem;color:#5d6c5f;margin:28px auto 0;max-width:950px}
+.contenedor section{scroll-margin-top:10px}
+@media(max-width:600px){.contenedor{width:min(94%,1100px)}.juego-panel{padding:20px 13px}.grid-sopa{gap:2px}.celda-sopa{border-radius:4px;font-size:clamp(.62rem,2.4vw,.9rem)}.menu-links{justify-content:center}.status{justify-content:center}.memory-board{gap:6px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* =========================================================
+   V09 · Enriquecimiento editorial y multimedia
+   Se preservan estilos originales de los seis juegos.
+   ========================================================= */
+:root{--gv-green:#195d3b;--gv-bright:#2d8551;--gv-cream:#eef8ef;--gv-gold:#f2cb75}
+body{background:#f4f8f3}
+.menu-principal{padding:14px max(24px,calc((100vw - 1220px)/2));box-shadow:0 4px 16px #063b1b16;gap:18px}
+.menu-links{gap:7px;align-items:center}.menu-links a{font-size:.93rem;padding:9px 11px}
+.hero-v09{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(330px,.94fr);gap:50px;align-items:center;padding:65px max(24px,calc((100vw - 1220px)/2));min-height:480px;background:linear-gradient(115deg,#123f2d,#296e43)}
+.hero-v09 h1{font-size:clamp(2.5rem,5vw,4.55rem);max-width:760px}.hero-v09 p{max-width:610px;font-size:1.13rem}
+.hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.btn-claro{border:1px solid #b8e4c9;border-radius:9px;padding:12px 20px;color:white;text-decoration:none;font-weight:750;background:#ffffff17}.btn-claro:hover{background:#ffffff33}
+.hero-visual{min-width:0}.hero-visual .foto-hero{display:block;width:100%;height:335px;object-fit:cover;border-radius:23px;box-shadow:0 18px 60px #082a1970;border:3px solid #ffffff36;background:#32684a}
+.hero-visual small{display:block;margin-top:10px;color:#e4f5e8;font-size:.75rem}.hero-visual small a{color:#e9f7ed}
+.contenedor{width:min(1200px,92%);margin:38px auto 60px}
+.section-heading{display:flex;align-items:end;justify-content:space-between;gap:40px;margin-bottom:22px}.section-heading>div{flex:1}.section-heading>p{flex:1;color:#536b5a;max-width:540px}
+.section-heading h2{font-size:clamp(1.7rem,3.6vw,2.35rem);color:#154e32;line-height:1.2;margin:7px 0}.eyebrow{font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;font-weight:800;color:#2b8452}
+.tarjeta-v09{padding:16px 16px 21px;display:flex;flex-direction:column;gap:5px;overflow:hidden}.tarjeta-v09 h3{font-size:1.24rem;margin:8px 5px}.tarjeta-v09 p{font-size:.95rem;margin:0 5px 12px;flex:1;color:#536758}.tarjeta-v09 .foto-ambiental{height:190px;margin:0 0 5px;border-radius:11px}.tag-verde{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:#32825b;padding:1px 5px}
+.enlace-accion{display:inline-block;color:#1b7044;font-weight:800;text-decoration:none;margin:8px 6px}.enlace-accion:hover{text-decoration:underline}
+.bloque-editorial{background:linear-gradient(125deg,#e4f3e7,#f8fcf9);border-radius:22px;margin:55px 0;padding:36px 30px;border:1px solid #d3e8d7}.bloque-editorial h2{font-size:clamp(1.65rem,3vw,2.2rem);color:#164d32}.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px;margin:23px 0 5px}.mini-grid article{border:1px solid #d4e9da;background:white;padding:20px;border-radius:13px}.mini-grid article span{font-size:2rem;color:#1d7149;font-weight:900}.mini-grid h3{color:#1a5838;margin:12px 0 3px}.mini-grid p{margin:0;color:#54685a;font-size:.91rem}
+.foto-mosaico,.galeria-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:17px}.foto-card{margin:0;background:white;border:1px solid #dbe9de;border-radius:16px;overflow:hidden;box-shadow:0 6px 20px #153b2810;min-width:0}.foto-card img{display:block;width:100%;height:225px;object-fit:cover;background:#dfeee2}.foto-card figcaption{padding:13px 15px 16px;display:grid;gap:5px}.foto-card strong{color:#20583a;font-size:1.05rem}.foto-card span{color:#55715e;font-size:.89rem}.foto-card small{color:#627169;font-size:.75rem;line-height:1.45}.foto-card small a{color:#19603d;overflow-wrap:anywhere}.foto-respaldo{object-fit:cover;opacity:.9}
+.center{text-align:center;margin:23px 0 30px}.center .btn-secundario{margin-left:8px}
+.v09-llamado{margin-top:32px}.v09-blanco{background:#fff;border:1px solid #dbeddf}
+.encabezado-v09{text-align:left;padding:55px max(5%,calc((100vw - 1140px)/2))}.encabezado-v09 h1{font-size:clamp(2.1rem,5vw,3.25rem);max-width:850px;line-height:1.17}.encabezado-v09 p{max-width:760px;font-size:1.05rem}.encabezado-v09 .eyebrow{color:#398553}
+.split-story,.two-column{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);align-items:start;gap:33px;margin:35px 0}.split-story h2{font-size:2rem;color:#205f3e}.split-story p{color:#495e50}.split-story .foto-card img{height:330px}
+.content-section{margin:45px 0 60px;padding-bottom:22px;border-bottom:1px solid #d6e7da;scroll-margin-top:20px}.content-section:last-child{border-bottom:0}
+.guaira-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.guaira-grid .tarjeta-v09 .foto-ambiental{height:245px}
+.dato-verde{background:#def0e2;padding:10px;border-radius:8px;font-weight:750}.card-tip{background:#edf6ed;border-left:5px solid #2b8050;border-radius:13px;padding:23px;margin:16px 0;color:#304e3b}.card-tip h2,.card-tip h3{color:#174d35}.card-tip li{padding:4px}.card-tip a{margin-top:14px}
+.check-list,.pasos{padding-left:23px;line-height:1.9}.aviso-seguro{padding:13px 17px;background:#fff2df;border-left:4px solid #c17e23;border-radius:9px}.cita-corta{font-size:.82rem;color:#5b735f}.cita-corta a{color:#227c4c}
+.enlaces-seccion{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:15px 0 35px}.enlaces-seccion a{background:#e7f4e9;border:1px solid #cae4d0;color:#165539;text-decoration:none;font-weight:750;padding:9px 13px;border-radius:50px}.enlaces-seccion a:hover{background:#cce7d3}
+.foto-amplia{width:100%;height:290px;object-fit:cover;border-radius:15px}.tabla-ambiental th,.tabla-ambiental td{min-width:125px}.tabla-ambiental th{background:#23623f}
+.aviso-galeria{background:#edf6ec;border-left:4px solid #267949;padding:16px 20px;border-radius:9px;margin:0 0 20px;color:#365b43}.filtros-galeria{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0}.filtro{border:1px solid #b9d8c1;background:white;color:#2e6a43;border-radius:50px;padding:9px 15px;font:inherit;font-weight:750;cursor:pointer}.filtro.activo,.filtro:hover{color:white;background:#277346}.galeria-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.gallery-wrapper{min-width:0}.gallery-wrapper .foto-card{height:100%}.galeria-grid>.foto-card[hidden],.gallery-wrapper[hidden]{display:none!important}
+.fuente-lista{display:grid;gap:11px;margin-bottom:25px}.fuente-item{background:white;border:1px solid #d6e6d9;border-radius:12px;padding:16px;display:grid;gap:6px}.fuente-item span{font-size:.87rem;color:#556c5b}.fuente-item a{color:#176b40;overflow-wrap:anywhere}.fuente-item small{color:#6c7d70}
+.desafio-semanal{background:#e9f7ed;padding:25px;border-radius:17px}.challenge-app{background:white;padding:25px;border:1px solid #c6dfce;border-radius:15px;max-width:800px;margin:20px auto}.challenge-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.challenge-head p{font-size:.86rem;color:#5b705f;margin:0}.challenge-count{background:#1c6540;color:white;padding:8px 14px;font-weight:850;border-radius:30px;white-space:nowrap}.challenge-app progress{width:100%;accent-color:#2c8a54;height:16px;margin:18px 0}.challenge-items{display:grid;gap:10px}.challenge-item{display:flex;align-items:center;gap:14px;cursor:pointer;background:#f8fbf7;border:1px solid #d4e9d7;border-radius:12px;padding:15px}.challenge-item input{width:21px;height:21px;flex-shrink:0;accent-color:#237647}.challenge-item span{display:grid;gap:3px}.challenge-item strong{font-size:.94rem}.challenge-item small{font-size:.82rem;color:#5c7063}.challenge-item.completado{background:#e6f5ea;border-color:#3f9560}.challenge-item.completado strong{text-decoration:line-through;color:#39724e}.challenge-app .game-actions{justify-content:flex-start}.challenge-app .feedback{margin:18px 0}
+.pie a{color:#c8f3d4}.pie a:hover{text-decoration:none}
+@media(max-width:960px){.hero-v09{grid-template-columns:1fr;gap:24px}.hero-v09 .hero-visual{max-width:850px}.hero-v09 .foto-hero{height:300px}.section-heading{flex-direction:column;align-items:start;gap:0}.split-story,.two-column{grid-template-columns:1fr}}
+@media(max-width:700px){.hero-v09{padding:48px 6%}.hero-v09 .foto-hero{height:240px}.guaira-grid{grid-template-columns:1fr}.foto-mosaico,.galeria-grid{grid-template-columns:1fr}.bloque-editorial{padding:25px 16px}.mini-grid{grid-template-columns:1fr}.encabezado-v09{padding:37px 5%}.challenge-app{padding:18px 12px}.desafio-semanal{padding:18px 10px}.center .btn-secundario{margin:10px 0 0}.challenge-head{align-items:start}}
+.two-column > *, .split-story > * {min-width:0}.tabla-contenedor {max-width:100%;overflow-x:auto}
+@media(max-width:470px){.menu-principal{padding:12px}.menu-links{justify-content:center}.menu-links a{padding:8px 10px;font-size:.88rem}.logo{width:100%;text-align:center}.foto-card img{height:210px}.hero-v09 h1{font-size:2.25rem}.hero-v09 .foto-hero{height:220px}}

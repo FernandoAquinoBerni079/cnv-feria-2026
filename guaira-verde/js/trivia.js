@@ -1,0 +1,21 @@
+"use strict";
+// Preguntas originales del grupo, ampliadas para una partida de diez preguntas.
+const bancoTrivia=[
+{p:"¿Qué debemos hacer con los residuos reciclables?",o:["Mezclarlos con todos los residuos","Separarlos y llevarlos a reciclar","Arrojarlos al arroyo"],c:1,e:"Separarlos limpios facilita su recuperación cuando hay un sistema de recolección apropiado."},
+{p:"¿Cuál es una forma de ahorrar agua?",o:["Dejar la canilla abierta","Lavar la vereda con manguera","Cerrar la canilla al cepillarnos"],c:2,e:"Cerrar la canilla cuando no se utiliza evita desperdiciar agua."},
+{p:"¿Qué energía proviene del sol?",o:["Energía solar","Carbón","Petróleo"],c:0,e:"La energía solar aprovecha la radiación del Sol."},
+{p:"¿Por qué son importantes los árboles?",o:["Porque contaminan el aire","Porque ayudan a producir oxígeno y protegen la biodiversidad","Porque generan basura"],c:1,e:"Los árboles capturan carbono, producen oxígeno mediante fotosíntesis y ofrecen refugio a muchos seres vivos."},
+{p:"¿Qué significa reutilizar?",o:["Volver a usar un objeto","Tirar todo","Comprar más productos"],c:0,e:"Reutilizar es aprovechar un objeto nuevamente antes de desecharlo."},
+{p:"¿Qué acción ayuda a reducir las emisiones del transporte?",o:["Quemar basura","Caminar o usar bicicleta en trayectos posibles","Dejar el motor encendido"],c:1,e:"Caminar o pedalear en viajes cortos evita el consumo de combustible en esos trayectos."},
+{p:"¿Qué es recomendable hacer con las pilas agotadas?",o:["Arrojarlas al arroyo","Mezclarlas con comida","Llevarlas a un punto de recolección adecuado"],c:2,e:"Las pilas requieren manejo apropiado según el sistema de recolección disponible."},
+{p:"¿Qué acción contribuye al ahorro de electricidad?",o:["Apagar luces innecesarias","Encender todas las luces de día","Dejar aparatos funcionando sin necesidad"],c:0,e:"Apagar los equipos y las luces que no se usan reduce consumo eléctrico."},
+{p:"¿Por qué no debemos arrojar residuos a los arroyos?",o:["Porque los limpian","Porque pueden contaminar el agua y dañar seres vivos","Porque se convierten en árboles"],c:1,e:"La basura en cursos de agua puede dañar organismos y perjudicar a las personas."},
+{p:"¿Qué opción reduce residuos de botellas descartables?",o:["Usar botellas reutilizables","Comprar descartables para cada uso","Tirar botellas a la calle"],c:0,e:"Usar una botella reutilizable evita algunos envases de un solo uso."}
+];
+let indice=0,puntos=0,respondida=false,orden=[];
+const el=id=>document.getElementById(id),bar=el("progreso-trivia"),estado=el("trivia-estado"),pregunta=el("pregunta-trivia"),opciones=el("opciones-trivia"),resultado=el("resultado-trivia"),puntaje=el("puntaje-trivia"),siguiente=el("siguiente-trivia"),reiniciar=el("reiniciar-trivia");
+function mezclar(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function iniciarTrivia(){orden=mezclar([...bancoTrivia]);indice=0;puntos=0;respondida=false;reiniciar.hidden=true;bar.value=0;mostrarPregunta();}
+function mostrarPregunta(){respondida=false;resultado.textContent="";resultado.className="feedback";siguiente.hidden=true;opciones.innerHTML="";const q=orden[indice];estado.textContent=`Pregunta ${indice+1} de ${orden.length}`;puntaje.textContent=`Puntaje: ${puntos}/${orden.length}`;pregunta.textContent=q.p;q.o.forEach((t,i)=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.addEventListener("click",()=>responder(i));opciones.appendChild(b);});}
+function responder(opcion){if(respondida)return;respondida=true;const q=orden[indice],ok=opcion===q.c;if(ok)puntos++;[...opciones.children].forEach((b,i)=>{b.disabled=true;if(i===q.c)b.classList.add("correcto");else if(i===opcion)b.classList.add("incorrecto");});resultado.className=`feedback ${ok?"good":"bad"}`;resultado.textContent=(ok?"¡Correcto! ":"No es correcto. ")+q.e;puntaje.textContent=`Puntaje: ${puntos}/${orden.length}`;bar.value=indice+1;if(indice===orden.length-1){estado.textContent="¡Trivia completada!";resultado.textContent+=` Resultado final: ${puntos} de ${orden.length}.`;reiniciar.hidden=false;}else{siguiente.hidden=false;}}
+siguiente.addEventListener("click",()=>{if(!respondida||indice>=orden.length-1)return;indice++;mostrarPregunta()});reiniciar.addEventListener("click",iniciarTrivia);iniciarTrivia();

@@ -1,0 +1,1 @@
+document.getElementById("form-compromiso").addEventListener("submit",function(e){e.preventDefault();const nombre=document.getElementById("nombre").value.trim();const accion=document.getElementById("accion").value;document.getElementById("respuesta-form").textContent=`¡Gracias, ${nombre}! Tu compromiso es: ${accion}.`;this.reset();});
