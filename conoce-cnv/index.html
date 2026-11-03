@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Conocé el CNV | Proyecto estudiantil 1.º BTI (V07.3)</title>
+<link href="img/CNVlogo.jpg" rel="icon" type="image/jpeg"/>
+<!-- FontAwesome for icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="css/styles.css" rel="stylesheet"/></head>
+<body>
+<!-- ADVERTENCIA OBLIGATORIA DE PROYECTO EDUCATIVO (TAREA 4 & Prompt 4) -->
+<div aria-label="Aviso de proyecto estudiantil" class="disclaimer-banner" role="region">
+<i class="fa-solid fa-graduation-cap"></i>
+<span><strong>PROYECTO EDUCATIVO ESTUDIANTIL:</strong> Conoce CNV — Proyecto desarrollado por alumnos del <strong>1.º BTI</strong> para la Feria de Informática 2026 del Colegio Nacional de Villarrica. <em>Sitio no oficial.</em></span>
+</div>
+<!-- ENCABEZADO Y NAVEGACIÓN -->
+<header>
+<div class="container header-content">
+<div aria-label="Ir a Inicio" class="brand" onclick="switchTab('sec-intro')" role="button" tabindex="0">
+<div class="brand-logo">CNV</div>
+<div>
+<div class="brand-title">Conoce CNV</div>
+<div class="brand-subtitle">1.º BTI • V07.3</div>
+</div>
+</div>
+<!-- Navegación Escritorio -->
+<nav aria-label="Navegación principal" class="desktop-nav">
+<button class="nav-btn active" data-tab="sec-intro" onclick="switchTab('sec-intro')">Inicio</button>
+<button class="nav-btn" data-tab="sec-historia" onclick="switchTab('sec-historia')">Historia</button>
+<button class="nav-btn" data-tab="sec-recuerdos" onclick="switchTab('sec-recuerdos')">Recuerdos</button>
+<button class="nav-btn" data-tab="sec-galeria" onclick="switchTab('sec-galeria')">Galería</button>
+<a class="nav-btn" href="oferta.html">Oferta educativa</a><a class="nav-btn" href="juegos.html">Juegos</a></nav>
+<button aria-expanded="false" aria-label="Abrir menú de navegación" class="mobile-menu-btn" id="mobile-menu-toggle">
+<span aria-hidden="true">☰</span>
+</button>
+</div>
+<!-- Menú Hamburguesa Móvil -->
+<div class="mobile-drawer" id="mobile-drawer">
+<button class="nav-btn" onclick="switchTab('sec-intro')">Inicio</button>
+<button class="nav-btn" onclick="switchTab('sec-historia')">Historia y Fundación</button>
+<button class="nav-btn" onclick="switchTab('sec-linea')">Línea de Tiempo</button>
+<button class="nav-btn" onclick="switchTab('sec-fundador')">Don "Pibe" Cáceres</button>
+<button class="nav-btn" onclick="switchTab('sec-mision')">Misión y Visión</button>
+<button class="nav-btn" onclick="switchTab('sec-identidad')">Identidad y Símbolos</button>
+<button class="nav-btn" onclick="switchTab('sec-recuerdos')">Muro de Recuerdos</button>
+<button class="nav-btn" onclick="switchTab('sec-galeria')">Galería de Imágenes del CNV</button>
+<a class="nav-btn" href="oferta.html">Oferta educativa</a><a class="nav-btn" href="juegos.html">Juegos y actividades</a></div>
+</header>
+<!-- CONTENIDO PRINCIPAL POR PESTAÑAS -->
+<main class="container">
+<!-- 1. INTRODUCCIÓN -->
+<section class="tab-panel active" id="sec-intro">
+<div class="hero">
+<span class="badge badge-verified" style="margin-bottom: 1rem;">Feria de Informática 2026</span>
+<h1>Colegio Nacional de Villarrica</h1>
+<p>Portal educativo de investigación, identidad institucional y trayectoria histórica desarrollado íntegramente por estudiantes del 1.º BTI.</p>
+<div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+<button class="btn btn-gold" onclick="switchTab('sec-historia')"><i class="fa-solid fa-book-open"></i> Leer Historia</button>
+<button class="btn btn-outline" onclick="window.location.href='juegos.html'" style="border-color: #fff; color: #fff;"><i class="fa-solid fa-gamepad"></i> Jugar Trivia</button>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+<div class="card">
+<h3 style="color: var(--cnv-navy); margin-bottom: 0.5rem;"><i class="fa-solid fa-landmark text-gold"></i> Fundado en 1970</h3>
+<p style="font-size: 0.9rem; color: var(--cnv-text-muted);">Establecido el 14 de mayo de 1970 en coincidencia con el tetracentenario de Villarrica del Espíritu Santo (1570-1970).</p>
+</div>
+<div class="card">
+<h3 style="color: var(--cnv-navy); margin-bottom: 0.5rem;"><i class="fa-solid fa-user-tie text-gold"></i> Pibe Cáceres</h3>
+<p style="font-size: 0.9rem; color: var(--cnv-text-muted);">Impulsado pedagógicamente por el Profesor Pedro Rubén Cáceres, primer director e ícono institucional.</p>
+</div>
+<div class="card">
+<h3 style="color: var(--cnv-navy); margin-bottom: 0.5rem;">Proyecto Feria 2026</h3>
+<p style="font-size: 0.9rem; color: var(--cnv-text-muted);">Página educativa elaborada por estudiantes de 1.º BTI, con historia, imágenes y actividades interactivas.</p>
+</div>
+</div>
+</section>
+<nav class="access-grid" aria-label="Explorar las secciones de Conocé el CNV">
+  <button type="button" class="active" aria-current="page" data-tab="sec-intro" onclick="switchTab('sec-intro')">Inicio</button>
+  <button type="button" data-tab="sec-historia" onclick="switchTab('sec-historia')">Historia</button>
+  <button type="button" data-tab="sec-linea" onclick="switchTab('sec-linea')">Línea de tiempo</button>
+  <button type="button" data-tab="sec-fundador" onclick="switchTab('sec-fundador')">El fundador</button>
+  <button type="button" data-tab="sec-mision" onclick="switchTab('sec-mision')">Misión y visión</button>
+  <button type="button" data-tab="sec-identidad" onclick="switchTab('sec-identidad')">Identidad, lema y valores</button>
+  <button type="button" data-tab="sec-recuerdos" onclick="switchTab('sec-recuerdos')">Recuerdos</button>
+  <button type="button" data-tab="sec-galeria" onclick="switchTab('sec-galeria')">Galería</button>
+  <a class="btn btn-primary" href="oferta.html">Oferta educativa</a>
+  <a class="btn btn-gold" href="juegos.html">Juegos</a>
+</nav>
+
+<!-- 2. HISTORIA Y FUNDACIÓN -->
+<section class="tab-panel" id="sec-historia">
+<div class="card">
+<h2 style="color: var(--cnv-navy); margin: 0.75rem 0;">Fundación e Historia Institucional</h2>
+<p>El <strong>Colegio Nacional de Villarrica</strong> fue fundado formalmente el <strong>14 de mayo de 1970</strong>. La fecha de inauguración fue fijada para conmemorar simultáneamente las Fiestas Patrias paraguayas y el 400.º aniversario de la fundación de la ciudad de Villarrica del Espíritu Santo (1570–1970).</p>
+<hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--cnv-border);"/>
+<h3 style="color: var(--cnv-navy); margin-bottom: 0.5rem;">Contexto del Nombre Inicial y Transición Democrática</h3>
+<p style="margin-top: 0.5rem;">Durante sus primeros años, en concordancia con los usos oficiales de la época, la institución operó bajo la denominación de <em>Colegio Nacional "Gral. Alfredo Stroessner"</em>. Tras los acontecimientos políticos de febrero de 1989 y la apertura democrática, la comunidad educativa formalizó la restitución de su denominación identitaria regional: <strong>Colegio Nacional de Villarrica (CNV)</strong>.</p>
+<hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--cnv-border);"/>
+</div>
+</section>
+<!-- 3. LÍNEA DE TIEMPO -->
+<section class="tab-panel" id="sec-linea">
+<div class="card">
+<h2 style="color: var(--cnv-navy); margin-bottom: 1.5rem;">Hitos Históricos de la Institución</h2>
+<div class="timeline-container">
+<div class="timeline-item">
+<span class="badge badge-verified">14 de Mayo de 1970</span>
+<h3 style="color: var(--cnv-navy); margin-top: 0.25rem;">Inauguración y Apertura</h3>
+<p style="font-size: 0.9rem; color: var(--cnv-text-muted);">Apertura oficial del colegio bajo la dirección del Prof. Pedro Rubén "Pibe" Cáceres durante el Cuatricentenario de Villarrica.</p>
+</div>
+<div class="timeline-item">
+<span class="badge badge-verified">1970 – 1988</span>
+<h3 style="color: var(--cnv-navy); margin-top: 0.25rem;">Consolidación Secundaria y Primeros Docentes</h3>
+<p style="font-size: 0.9rem; color: var(--cnv-text-muted);">Crecimiento continuo del número de alumnos y primeras promociones de bachilleres que funcionan en los turnos tarde y noche.Se recuerda con Gratitud a los primeros docentes que pasaron por nuestras aulas:María Elena Doldan, Brunilda Madelaire, Ramón Mieres, Miguel Ángel Paniagua, Ramón Guerrero, Elsa de Filippi, Alba Buscio de Velázquez, Ángel Roa, Pedro Ramón Martinez, Miguel Ángel Jara, Aida Andino, Mateo Peralta, Artemio Franco Preda, Alodia Franco Preda, entre muchos otros. Los primeros directores del Colegio fueron: Asunción Buscio de Cáceres y Don Rubén Cáceres.</p>
+</div>
+<div class="timeline-item">
+<span class="badge badge-corrected">Año 1989</span>
+<h3 style="color: var(--cnv-navy); margin-top: 0.25rem;">Redenominación Oficial</h3>
+<p style="font-size: 0.9rem; color: var(--cnv-text-muted);">Sustitución oficial de la denominación inicial Liceo Nacional Presidente Stroessner por "Colegio Nacional de Villarrica" por el inicio de la Era Democrática.</p>
+</div>
+<div class="timeline-item">
+<span class="badge badge-verified">2026</span>
+<h3 style="color: var(--cnv-navy); margin-top: 0.25rem;">Actualidad</h3>
+<p style="font-size: 0.9rem; color: var(--cnv-text-muted);">Actualmente funciona los turnos mañana, tarde y noche con los siguientes niveles y modalidades: Educación Escolar Básica, Bachilleratos Científicos con énfasis en Ciencias Sociales, Ciencias Básicas, Letras y Artes y el Bachillerato Técnico énfasis en Contabilidad y énfasis en Informática. Hoy en día se encuentra al mando como Directora la Mg. Deicy Verdecchia en los turnos mañana y tarde y el Lic. Danny Sosa en el turno noche.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. DON "PIBE" CÁCERES -->
+<section class="tab-panel" id="sec-fundador">
+<div class="card">
+<div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+<div style="width: 100px; height: 100px; background: var(--cnv-navy); color: var(--cnv-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: bold; border: 3px solid var(--cnv-gold);">
+<i class="fa-solid fa-user-tie"></i>
+</div>
+<div>
+<span class="badge badge-verified">Director Fundador</span>
+<h2 style="color: var(--cnv-navy); margin-top: 0.25rem;">Prof. Pedro Rubén "Pibe" Cáceres</h2>
+<p style="font-size: 0.9rem; color: var(--cnv-text-muted);">Gestor y figura central en la creación del Colegio Nacional de Villarrica en 1970.</p>
+</div>
+</div>
+<hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--cnv-border);"/>
+<p>El Profesor Pedro Rubén Cáceres, recordado cariñosamente por generaciones de estudiantes como "Don Pibe", encabezó las gestiones educativas y administrativas ante el Ministerio de Educación para hacer posible la apertura del establecimiento en mayo de 1970.</p>
+<div style="background: #F8FAFC; border-left: 4px solid var(--cnv-gold); padding: 1rem; margin-top: 1rem; font-size: 0.85rem; color: var(--cnv-text-muted);">
+<strong>Nota de Auditoría Histórica V05:</strong> Los detalles biográficos específicos referentes a legajos administrativos continúan en proceso de revisión por los alumnos del BTI en archivos departamentales.
+                </div>
+</div>
+</section>
+<!-- 5. MISIÓN, VISIÓN Y FINALIDAD -->
+<section class="tab-panel" id="sec-mision">
+<div class="card">
+<h2 style="color: var(--cnv-navy); margin: 0.75rem 0;">Misión y Visión Institucional</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+<div style="border: 1px solid var(--cnv-border); padding: 1rem; border-radius: 8px;">
+<h3 style="color: var(--cnv-navy);"><i class="fa-solid fa-bullseye text-gold"></i> Misión del CNV</h3>
+<p style="font-size: 0.9rem; color: var(--cnv-text-muted); margin-top: 0.5rem;">La creación de espacios que propicien la formación integral de educandos con competencias sociales, afectivas y cognitivas a fin de desarrollar una buena calidad de vida.</p>
+</div>
+<div style="border: 1px solid var(--cnv-border); padding: 1rem; border-radius: 8px;">
+<h3 style="color: var(--cnv-navy);"><i class="fa-solid fa-eye text-gold"></i> Visión del CNV</h3>
+<p style="font-size: 0.9rem; color: var(--cnv-text-muted); margin-top: 0.5rem;">Colegio Nacional de Villarrica, centro educativo líder en la formación de jóvenes con valores humanos y, competentes para enfrentar los desafíos del mundo actual.</p>
+</div>
+</div>
+</div>
+
+<p class="fuente-institucional">Textos de la misión y la visión publicados por el <a href="https://www.facebook.com/cnvguaira/posts/944712147450877/" target="_blank" rel="noopener noreferrer">Colegio Nacional de Villarrica en su reseña institucional de 2024</a>.</p>
+</section>
+<!-- 6. IDENTIDAD Y SÍMBOLOS -->
+<section class="tab-panel" id="sec-identidad">
+<div class="card">
+<h2 style="color: var(--cnv-navy); margin-bottom: 1rem;">Identidad y Valores Institucionales</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+<div style="background: var(--cnv-light-blue); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--cnv-navy);">
+<h3 style="color: var(--cnv-navy);">Azul Marino / Rey</h3>
+<p style="font-size: 0.85rem; color: var(--cnv-text-dark);">Simboliza la seriedad académica, la firmeza de principios y la lealtad comunitaria.</p>
+</div>
+<div style="background: #FFF; padding: 1rem; border-radius: 8px; border: 1px solid var(--cnv-border); border-left: 4px solid var(--cnv-gold);">
+<h3 style="color: var(--cnv-navy);">Blanco</h3>
+<p style="font-size: 0.85rem; color: var(--cnv-text-dark);">Representa la pureza, la transparencia administrativa y el afán continuo de conocimiento.</p>
+</div>
+</div>
+</div>
+
+<div class="card valores-card">
+  <h2>Lema institucional</h2>
+  <p class="lema-institucional">«Formando líderes para la vida»</p>
+  <h3>Valores del Colegio Nacional de Villarrica</h3>
+  <ul class="lista-valores" aria-label="Valores institucionales">
+    <li>Solidaridad</li>
+    <li>Tolerancia</li>
+    <li>Respeto</li>
+    <li>Honestidad</li>
+    <li>Patriotismo</li>
+    <li>Responsabilidad</li>
+  </ul>
+  <p class="fuente-institucional">Valores publicados por el <a href="https://www.facebook.com/cnvguaira/posts/944712147450877/" target="_blank" rel="noopener noreferrer">Colegio Nacional de Villarrica</a>. Lema tomado de la insignia institucional del 56.º aniversario (1970–2026), aportada por el docente.</p>
+</div>
+</section>
+<!-- 7. OFERTA EDUCATIVA -->
+<!-- 8. JUEGO 1: TRIVIA HISTÓRICA (AUDITADO) -->
+<!-- 9. JUEGO 2: ORDENAR LÍNEA DE TIEMPO (AUDITADO) -->
+<!-- 10. MURO DE RECUERDOS (LOCALSTORAGE) -->
+<section class="tab-panel" id="sec-recuerdos">
+<div class="card">
+<h2 style="color: var(--cnv-navy);">Muro Histórico de Recuerdos</h2>
+<p style="font-size: 0.85rem; color: var(--cnv-text-muted); margin-bottom: 1rem;">Espacio interactivo para exalumnos, docentes y estudiantes. Los mensajes se guardan localmente en tu navegador.</p>
+<div style="background: #EFF6FF; border: 1px solid #BFDBFE; padding: 0.85rem; border-radius: 8px; font-size: 0.8rem; color: #1E40AF; margin-bottom: 1.5rem;">
+<i class="fa-solid fa-shield-halved"></i> <strong>Aviso de Privacidad y Moderación:</strong> No ingreses datos personales sensibles ni información privada de terceros. Los registros inadecuados pueden limpiarse localmente.
+                </div>
+<form id="memory-form" onsubmit="saveMemory(event)">
+<div style="margin-bottom: 1rem;">
+<label for="mem-author" style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.25rem;">Nombre y Promoción / Rol:</label>
+<input id="mem-author" placeholder="Ej. Prof. Juan Pérez / Promoción 1995" required="" style="width: 100%; padding: 0.6rem; border: 1px solid var(--cnv-border); border-radius: 6px;" type="text"/>
+</div>
+<div style="margin-bottom: 1rem;">
+<label for="mem-text" style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.25rem;">Tu Anécdota o Mensaje:</label>
+<textarea id="mem-text" placeholder="Escribe tu recuerdo sobre el colegio..." required="" rows="3" style="width: 100%; padding: 0.6rem; border: 1px solid var(--cnv-border); border-radius: 6px;"></textarea>
+</div>
+<button class="btn btn-gold" type="submit"><i class="fa-solid fa-paper-plane"></i> Publicar en el Muro Local</button>
+</form>
+<hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--cnv-border);"/>
+<h3 style="color: var(--cnv-navy); margin-bottom: 1rem;">Mensajes Registrados</h3>
+<div id="memories-container" style="display: flex; flex-direction: column; gap: 1rem;">
+<!-- Mensajes cargados dinámicamente -->
+</div>
+</div>
+</section>
+<!-- 11. GALERÍA DE IMÁGENES DEL CNV -->
+<section class="tab-panel" id="sec-galeria">
+<div class="card">
+<h2 style="color: var(--cnv-navy); margin-bottom: 0.5rem;">Galería de Imágenes del CNV</h2>
+<p style="font-size: 0.9rem; color: var(--cnv-text-muted); margin-bottom: 1.5rem;">Espacios reservados para agregar fotografías de la historia, las actividades y la comunidad del Colegio Nacional de Villarrica.</p>
+<div class="gallery-grid">
+<!-- Para agregar una foto, reemplaza el recuadro por: <img class="gallery-image" src="img/tu-foto.jpg" alt="Descripción de la foto"> -->
+<figure class="gallery-item">
+<div aria-label="Espacio reservado para una imagen" class="gallery-placeholder">
+<span>
+<img alt="Imagen de ejemplo del CNV" class="gallery-image" src="img/2012-CNV.jpeg" style="display: flex;"/>
+</span>
+</div>
+<figcaption>Imagen de la Fachada del CNV del año 2012</figcaption>
+</figure>
+<figure class="gallery-item">
+<div aria-label="Espacio reservado para una imagen" class="gallery-placeholder">
+<span>
+<img alt="Imagen de ejemplo del CNV" class="gallery-image" src="img/Interior-CNV.jpeg" style="display: flex;"/>
+</span>
+</div>
+<figcaption>Imagen las actividades académicas del CNV en época de cuarentena</figcaption>
+</figure>
+<figure class="gallery-item">
+<div aria-label="Espacio reservado para una imagen" class="gallery-placeholder">
+<span>
+<img alt="Imagen de ejemplo del CNV" class="gallery-image" src="img/14-de-mayo-CNV.jpeg" style="display: flex;"/>
+</span>
+</div>
+<figcaption>Imagen de los Docentes en la celebración del 14 de Mayo</figcaption>
+</figure>
+<figure class="gallery-item">
+<div aria-label="Espacio reservado para una imagen" class="gallery-placeholder">
+<span>
+<img alt="Imagen de ejemplo del CNV" class="gallery-image" src="img/Fachada-CNV.jpeg" style="display: flex;"/>
+</span>
+</div>
+<figcaption>Imagen de la Fachada del CNV actualmente</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<!-- Auditoría trasladada a documentación independiente -->
+<!-- 14. PESTAÑA: FUENTES HISTÓRICAS (FUENTES_HISTORICAS.md) -->
+<!-- 15. PESTAÑA: CRÉDITOS Y LICENCIAS (CREDITOS_LICENCIAS.md) -->
+</main>
+<!-- PIE DE PÁGINA INSTITUCIONAL -->
+<footer>
+<div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+<div>
+<strong style="color: #FFF;">Conoce CNV — Proyecto 1.º BTI</strong>
+<p style="margin-top: 0.25rem;">Colegio Nacional de Villarrica • Feria de Informática 2026</p>
+</div>
+<div style="font-size: 0.8rem;">
+<span>Versión V07.3</span> | <a href="informe.html" style="color: var(--cnv-gold); text-decoration: none;">Ver informe técnico</a>
+</div>
+</div>
+</footer>
+<!-- LÓGICA JAVASCRIPT NATIVA Y INTERACTIVA (AUDITADA) -->
+<script src="js/nav.js"></script><script src="js/recuerdos.js"></script></body>
+</html>

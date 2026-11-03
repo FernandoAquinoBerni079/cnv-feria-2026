@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Juegos interactivos | Conocé el CNV</title><link rel="icon" href="img/CNVlogo.jpg" type="image/jpeg"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="css/styles.css"></head><body><div aria-label="Aviso de proyecto estudiantil" class="disclaimer-banner" role="region">
+<i class="fa-solid fa-graduation-cap"></i>
+<span><strong>PROYECTO EDUCATIVO ESTUDIANTIL:</strong> Conoce CNV — Proyecto desarrollado por alumnos del <strong>1.º BTI</strong> para la Feria de Informática 2026 del Colegio Nacional de Villarrica. <em>Sitio no oficial.</em></span>
+</div><header><div class="container header-content"><div class="brand"><div class="brand-logo">CNV</div><div><div class="brand-title">Conocé el CNV</div><div class="brand-subtitle">Proyecto estudiantil · V07.3</div></div></div><nav class="sub-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="index.html#sec-historia">Historia</a><a href="oferta.html">Oferta educativa</a><a href="juegos.html">Juegos</a><a href="index.html#sec-recuerdos">Recuerdos</a><a href="index.html#sec-galeria">Galería</a></nav></div></header><main class="container" style="padding-top:2rem;padding-bottom:2rem"><nav class="access-grid" aria-label="Accesos a las secciones del proyecto">
+<a class="btn btn-primary" href="index.html#sec-intro">Inicio</a>
+<a class="btn btn-primary" href="index.html#sec-historia">Historia</a>
+<a class="btn btn-primary" href="index.html#sec-linea">Línea de tiempo</a>
+<a class="btn btn-primary" href="index.html#sec-fundador">El fundador</a>
+<a class="btn btn-primary" href="index.html#sec-mision">Misión y visión</a>
+<a class="btn btn-primary" href="index.html#sec-identidad">Identidad, lema y valores</a>
+<a class="btn btn-primary" href="index.html#sec-recuerdos">Recuerdos</a>
+<a class="btn btn-primary" href="index.html#sec-galeria">Galería</a>
+<a class="btn btn-gold" href="oferta.html">Oferta educativa</a>
+<a class="btn btn-gold" href="juegos.html">Juegos</a>
+</nav><h1 style="color:var(--cnv-navy);font-size:1.9rem;margin-bottom:1rem">Juegos interactivos</h1><section class="tab-panel active" id="sec-juego-trivia">
+<div class="card">
+<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem;">
+<div>
+<h2 style="color: var(--cnv-navy);">Juego 1: Trivia Histórica CNV</h2>
+<p style="font-size: 0.85rem; color: var(--cnv-text-muted);">Responde 10 preguntas ordenadas aleatoriamente sobre la historia del colegio.</p>
+</div>
+<div style="text-align: right;">
+<span style="font-size: 0.85rem; font-weight: bold;">Puntaje: <span id="quiz-score" style="color: var(--cnv-blue);">0</span> / 10</span>
+</div>
+</div>
+<div id="quiz-body">
+<div id="quiz-question-text" style="margin-bottom: 1rem; font-weight: 700; color: var(--cnv-navy);">
+                        Cargando pregunta...
+                    </div>
+<div id="quiz-options-container">
+<!-- Opciones generadas por JS -->
+</div>
+<div id="quiz-explanation" style="display: none; padding: 1rem; border-radius: 8px; margin-top: 1rem; font-size: 0.85rem;"></div>
+<div style="margin-top: 1rem; display: flex; justify-content: flex-end;">
+<button class="btn btn-primary" id="quiz-next-btn" onclick="nextQuestion()" style="display: none;">Siguiente Pregunta <i class="fa-solid fa-arrow-right"></i></button>
+</div>
+</div>
+<div id="quiz-results" style="display: none; text-align: center; padding: 2rem 0;">
+<h3 style="color: var(--cnv-navy); font-size: 1.5rem;">¡Trivia Completada!</h3>
+<p style="font-size: 1.2rem; margin: 1rem 0;">Tu resultado final es: <strong id="final-score" style="color: var(--cnv-gold-dark);">0</strong> de 10 respuestas correctas.</p>
+<p id="quiz-feedback-text" style="font-size: 0.9rem; color: var(--cnv-text-muted); margin-bottom: 1.5rem;"></p>
+<button class="btn btn-gold" onclick="initQuiz()"><i class="fa-solid fa-rotate-right"></i> Reiniciar Juego</button>
+</div>
+</div>
+</section><section class="tab-panel active" id="sec-juego-linea">
+<div class="card">
+<h2 style="color: var(--cnv-navy);">Juego 2: Ordenar la Línea de Tiempo</h2>
+<p style="font-size: 0.85rem; color: var(--cnv-text-muted); margin-bottom: 1.5rem;">Organiza cronológicamente los acontecimientos históricos utilizando las flechas para mover los elementos arriba o abajo.</p>
+<div id="reorder-list">
+<!-- Elementos ordenables por JS -->
+</div>
+<div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+<button class="btn btn-primary" onclick="checkTimelineOrder()"><i class="fa-solid fa-check"></i> Verificar Orden</button>
+<button class="btn btn-outline" onclick="initTimelineGame()"><i class="fa-solid fa-shuffle"></i> Mezclar Hitos</button>
+</div>
+<div id="timeline-feedback" style="display: none; margin-top: 1.5rem; padding: 1rem; border-radius: 8px; font-size: 0.9rem;"></div>
+</div>
+</section></main><footer>
+<div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+<div>
+<strong style="color: #FFF;">Conoce CNV — Proyecto 1.º BTI</strong>
+<p style="margin-top: 0.25rem;">Colegio Nacional de Villarrica • Feria de Informática 2026</p>
+</div>
+<div style="font-size: 0.8rem;">
+<span>Versión V07.3 Revisada</span> | <a href="informe.html" style="color: var(--cnv-gold); text-decoration: none;">Ver informe técnico</a>
+</div>
+</div>
+</footer><script src="js/juegos.js"></script></body></html>
