@@ -1,0 +1,510 @@
+/* === ESTILOS GENERALES === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F9F5ED;
+    color: #5C4A3B;
+    line-height: 1.7;
+}
+
+.contenedor {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* === IMÁGENES CUADRADITAS === */
+.img-cuadrada {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid #E8DFD0;
+    display: block;
+    margin: 15px auto;
+    box-shadow: 0 2px 6px rgba(92, 74, 59, 0.15);
+}
+
+/* === CABECERA === */
+header {
+    background: linear-gradient(135deg, #967259, #7A5C47);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 35px 20px;
+    box-shadow: 0 4px 10px rgba(122, 92, 71, 0.2);
+}
+
+header h1 {
+    font-size: 2.2em;
+    margin-bottom: 8px;
+}
+
+header p {
+    font-size: 1.05em;
+    opacity: 0.92;
+    margin-bottom: 22px;
+}
+
+nav a {
+    display: inline-block;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 11px 28px;
+    margin: 0 6px;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.18);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+nav a.activo {
+    background-color: #FFFFFF;
+    color: #7A5C47;
+    font-weight: bold;
+}
+
+nav a:hover:not(.activo) {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* === TÍTULOS === */
+.subtitulo-centrado {
+    text-align: center;
+    color: #7A5C47;
+    font-size: 1.6em;
+    margin: 40px 0 25px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #E8DFD0;
+}
+
+/* === RECUADROS PRINCIPALES === */
+.recuadro-principal {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 30px;
+    margin: 30px 0;
+    border-left: 5px solid #967259;
+    box-shadow: 0 4px 12px rgba(150, 114, 89, 0.1);
+}
+
+.recuadro-principal h2 {
+    color: #7A5C47;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+}
+
+.recuadro-final {
+    background: linear-gradient(135deg, #F3EBE0, #EDE2D3);
+    border-radius: 16px;
+    padding: 35px;
+    margin: 40px 0;
+    text-align: center;
+    border: 2px solid #E0D2BF;
+}
+
+.recuadro-final h2 {
+    color: #7A5C47;
+    margin-bottom: 15px;
+}
+
+.frase-final {
+    font-size: 1.1em;
+    font-style: italic;
+    color: #6B5443;
+    margin: 15px 0 25px;
+}
+
+.destacado {
+    background-color: #F3EBE0;
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+/* === TARJETAS GRID — Inicio === */
+.tarjetas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.tarjeta {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 22px;
+    border: 1px solid #E8DFD0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(150, 114, 89, 0.15);
+}
+
+.tarjeta h3 {
+    color: #967259;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.tarjeta-chica {
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 18px;
+    border: 1px solid #E8DFD0;
+    text-align: center;
+}
+
+/* === TARJETAS DE CULTIVOS === */
+.cultivo-tarjeta {
+    background: #FFFFFF;
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 22px;
+    border: 1px solid #E8DFD0;
+    box-shadow: 0 3px 8px rgba(150, 114, 89, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.cultivo-tarjeta:hover {
+    transform: translateY(-3px);
+}
+
+.cultivo-tarjeta h3 {
+    color: #7A5C47;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed #E8DFD0;
+}
+
+.cultivo-tarjeta p {
+    margin-bottom: 8px;
+}
+
+.consejo {
+    background-color: #F9F5ED;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-top: 12px;
+    font-style: italic;
+    color: #7A5C47;
+}
+
+/* === ESTACIONES DEL AÑO === */
+.estaciones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.estacion {
+    border-radius: 12px;
+    padding: 22px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.estacion:hover {
+    transform: scale(1.03);
+}
+
+.estacion h3 {
+    margin-bottom: 10px;
+    font-size: 1.15em;
+}
+
+.verano {
+    background: linear-gradient(135deg, #FDF6E3, #FAEFC8);
+    border: 2px solid #EED88E;
+    color: #866A2F;
+}
+
+.calido {
+    background: linear-gradient(135deg, #FEF0E3, #FCD7B8);
+    border: 2px solid #F6B884;
+    color: #985E2C;
+}
+
+.fresco {
+    background: linear-gradient(135deg, #EDF4E9, #D9E9CE);
+    border: 2px solid #AED498;
+    color: #4F773C;
+}
+
+.invierno {
+    background: linear-gradient(135deg, #EDEFF2, #DCE2EB);
+    border: 2px solid #B8C4D6;
+    color: #4A5568;
+}
+
+/* === CUIDADOS === */
+.cuidados-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.cuidado {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 22px;
+    border: 1px solid #E8DFD0;
+    text-align: center;
+}
+
+.cuidado h3 {
+    color: #967259;
+    margin-bottom: 10px;
+}
+
+/* === ERRORES COMUNES === */
+.errores-lista {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.error-item {
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    border-left: 4px solid #D4B99C;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.cruz {
+    font-size: 1.3em;
+}
+
+/* === BOTONES === */
+.boton-centro {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.boton-principal {
+    display: inline-block;
+    background: linear-gradient(135deg, #967259, #7A5C47);
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 14px 35px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.05em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(122, 92, 71, 0.25);
+}
+
+.boton-principal:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(122, 92, 71, 0.35);
+}
+
+.boton-secundario {
+    display: inline-block;
+    background: #FFFFFF;
+    color: #7A5C47;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    border: 2px solid #967259;
+    transition: all 0.3s ease;
+}
+
+.boton-secundario:hover {
+    background: #967259;
+    color: #FFFFFF;
+}
+
+/* === PIE DE PÁGINA === */
+footer {
+    background: linear-gradient(135deg, #7A5C47, #634A38);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 25px;
+    margin-top: 50px;
+}
+
+footer p {
+    margin-bottom: 5px;
+    opacity: 0.9;
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.7em;
+    }
+    
+    nav a {
+        display: block;
+        margin: 8px auto;
+        max-width: 220px;
+    }
+    
+    .tarjetas-grid,
+    .estaciones-grid,
+    .cuidados-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .recuadro-principal,
+    .cultivo-tarjeta,
+    .recuadro-final {
+        padding: 20px;
+    }
+    
+    .img-cuadrada {
+        width: 100px;
+        height: 100px;
+    }
+}
+/* ===== ESTILOS DEL JUEGO — COLORES DE HUERTA DIGITAL ===== */
+.seccion-juego {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 2px solid #81c784;
+}
+
+.sub-juego {
+    text-align: center;
+    color: #2e7d32;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.caja-juego {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.pregunta {
+    background: #fafafa;
+    padding: 1.3rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #4caf50;
+    transition: background 0.2s ease;
+}
+
+.pregunta h3 {
+    margin: 0 0 0.8rem 0;
+    color: #2e7d32;
+    font-size: 1rem;
+}
+
+.opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.opcion {
+    padding: 0.7rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #ffffff;
+}
+
+.opcion:hover {
+    border-color: #66bb6a;
+    background: #e8f5e9;
+}
+
+.retro {
+    display: block;
+    margin-top: 0.8rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.puntuacion {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f1f8e9;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid #4caf50;
+}
+
+.puntos {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #2e7d32;
+    margin: 0.5rem 0;
+}
+
+.btn-reiniciar {
+    margin-top: 1rem;
+    padding: 0.7rem 1.5rem;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-reiniciar:hover {
+    background: #388e3c;
+}
+
+@media (max-width: 600px) {
+    .seccion-juego {
+        padding: 1.2rem;
+    }
+    .pregunta h3 {
+        font-size: 0.95rem;
+    }
+}
+/* ==== HUERTA DIGITAL V05: CAPA DE DISEÑO Y ACCESIBILIDAD ==== */
+:root{--verde:#396b45;--verde2:#28543b;--tierra:#734f3d;--papel:#f8f6ef;--borde:#e4dac9;--sombra:0 12px 25px rgba(72,64,39,.08)}
+[hidden]{display:none!important} html{scroll-behavior:smooth} body{background:var(--papel);color:#3f3e32;font-size:16px} a{color:var(--verde2)}
+.skip-link{position:absolute;left:-9999px;top:6px;background:#fff;padding:10px;z-index:100}.skip-link:focus{left:10px}
+:focus-visible{outline:3px solid #d69d48;outline-offset:3px}
+.cabecera{padding:12px 0;background:#2d4937;text-align:left;box-shadow:none}.cabecera>.contenedor{max-width:1160px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}.cabecera .marca{display:flex;align-items:center;gap:12px}.marca strong{display:block;font-size:1.1rem}.marca small{display:block;font-size:.78rem;opacity:.88}.emblema{font-size:2rem;background:#fff2d0;border-radius:12px;padding:2px 8px}
+.cabecera nav{display:flex;flex-wrap:wrap;gap:4px}.cabecera nav a{display:inline-block;margin:0;padding:8px 12px;border-radius:8px;font-weight:600;font-size:.92rem}.cabecera nav a.activo{color:#2b4c32}.cabecera nav a:hover{background:#fff3}
+.encabezado-pagina{background:linear-gradient(130deg,#e8f1df,#f3e6d3);padding:34px 0 40px;border-bottom:1px solid var(--borde)}.encabezado-pagina h1{font-family:Georgia,serif;color:#36513b;font-size:clamp(2rem,5vw,3.3rem);margin:8px 0 10px}.encabezado-pagina p{color:#4e544a;max-width:70ch;margin:0}.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:850;color:#715640}.eyebrow.green{color:var(--verde2)}
+main.contenedor{max-width:1120px;padding:10px 20px 50px}main>section{margin:32px 0 40px}.hero-cultivo{display:grid;grid-template-columns:1fr minmax(250px,.7fr);gap:30px;align-items:center;padding:32px;background:#fff;border:1px solid var(--borde);border-radius:20px;box-shadow:var(--sombra)}.hero-cultivo h2{font:700 clamp(2.1rem,4.8vw,3.4rem)/1.12 Georgia,serif;color:var(--verde2);margin:12px 0 15px}.hero-cultivo p{font-size:1.08rem;max-width:52ch}.hero-photo{width:100%;height:355px;object-fit:cover;border-radius:16px}.hero-metrics{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.hero-metrics span{background:#edf4e9;border-radius:9px;padding:5px 11px}.hero-metrics strong{color:#23583c;font-size:1.2rem}
+.botonera{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}.boton-principal,.boton-secundario{padding:12px 19px;border-radius:11px;font-weight:800;display:inline-block;text-align:center}.boton-principal{background:#2e6340;box-shadow:none}.boton-principal:hover{background:#204d33}.boton-secundario{color:#2e6340;border-color:#2e6340}.boton-secundario:hover{background:#ebf5ea;color:#214b2c}
+.recuadro-principal{border-left:5px solid #5d985a;box-shadow:var(--sombra)}.foto-intro{float:right;width:180px;height:185px;object-fit:cover;margin:0 0 10px 20px;border-radius:14px}
+.tarjetas-grid,.pasos-grid,.cuidados-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.tarjeta,.cuidado{border-radius:13px;box-shadow:var(--sombra)}.tarjeta h3,.cuidado h3{color:#345d3b}.paso{display:grid;place-items:center;background:#d8ead0;color:#286033;border-radius:50%;width:36px;height:36px}
+.cultivos-portada{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.mini-cultivo{background:#fff;overflow:hidden;border:1px solid var(--borde);border-radius:14px;text-decoration:none;box-shadow:var(--sombra);color:#31573a}.mini-cultivo img{width:100%;height:175px;object-fit:cover}.mini-cultivo strong,.mini-cultivo span{display:block;margin:8px 15px}.mini-cultivo span{margin-top:0;margin-bottom:13px;font-size:.86rem}.mini-cultivo:hover{transform:translateY(-3px)}
+.llamada{padding:30px;background:#ebf3e7;border:1px solid #d0e3cb;border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:25px}.llamada h2{margin-bottom:8px;color:#2b5436}.llamada p{max-width:57ch}.llamada .botonera{min-width:230px;justify-content:end}
+.subtitulo-centrado{color:#3d633e;border-bottom-color:#cce2ca}.filtros-huerta{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:12px;margin:18px 0}.filtros-huerta label{font-weight:700;color:#35513c}.filtros-huerta input,.filtros-huerta select{width:100%;display:block;margin-top:7px;border:1px solid #9cbaa0;border-radius:9px;background:white;padding:11px;font:inherit;color:#2c442f}.section-lead{margin:12px 0;max-width:75ch}.resultado-filtro{font-weight:700;color:#3b6244;margin:12px 0}.cultivos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.cultivo-ampliado{margin:0;padding:18px;scroll-margin-top:20px}.cultivo-ampliado h3{border-bottom-color:#c4dcc2}.foto-cultivo{width:100%;height:225px;object-fit:cover;display:block;border-radius:12px;margin:12px auto 18px}.cultivo-tarjeta .consejo{background:#eaf4e4;color:#3c603c;font-style:normal}
+.tabla-wrap{overflow-x:auto}.tabla-wrap table{border-collapse:collapse;width:100%;min-width:630px}.tabla-wrap th,.tabla-wrap td{border-bottom:1px solid #e0e8d6;text-align:left;padding:13px}.tabla-wrap thead{background:#356646;color:#fff}.tabla-wrap thead th{color:#fff}.tabla-wrap tbody tr:nth-child(2n){background:#f2f7ee}.tabla-wrap caption{font-size:.84rem;text-align:left;margin:10px 0}.fuente-mini{font-size:.88rem;margin-top:12px}
+.explicacion{padding:25px;background:#fff;border:1px solid var(--borde);border-radius:12px}.explicacion h2{color:#315c3b;margin:0 0 9px}
+.juego{background:#fff;border-radius:18px;border:1px solid #d5e3d4;box-shadow:var(--sombra);max-width:800px;margin:25px auto!important;padding:25px}.juego-estado{display:flex;justify-content:space-between;gap:15px;color:#39563f;font-weight:750}.barra{height:12px;background:#e3eee1;border-radius:12px;overflow:hidden;margin:14px 0 25px}.barra-relleno{height:100%;width:0;background:#52a063;border-radius:12px;transition:width .25s}.pregunta-juego{font-size:1.45rem;line-height:1.45;color:#263d2d}.respuestas{display:grid;gap:12px;margin:20px 0}.respuesta{display:block;width:100%;padding:14px 16px;text-align:left;font:inherit;border:2px solid #d6e2d4;border-radius:10px;background:#fafbf7;color:#253f2d;cursor:pointer}.respuesta:hover:not(:disabled){border-color:#57a065;background:#f0f8ef}.respuesta:disabled{cursor:default}.respuesta.correcta{border-color:#278146;background:#e5f6e8}.respuesta.incorrecta{border-color:#a94040;background:#fce7e7}.feedback-juego{margin:12px 0;padding:12px 15px;border-radius:9px;line-height:1.6}.feedback-juego:empty{display:none}.feedback-juego.acierto{background:#e6f5e7;color:#275c31}.feedback-juego.error{background:#fff0e9;color:#8b3525}.final-juego{padding:20px;background:#edf6ea;border:1px solid #d0e7cc;border-radius:12px}.final-juego h3{color:#245236}
+.checklist{display:grid;gap:12px}.check-item{display:flex;gap:12px;align-items:center;border:1px solid #d4e2d2;background:#f8fcf7;padding:14px;border-radius:9px;cursor:pointer}.check-item input{accent-color:#3c874d;transform:scale(1.25)}.check-item:has(input:checked){background:#e1f5df}.progreso-encabezado{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}.progreso-encabezado .boton-secundario{font:inherit;padding:8px 14px;cursor:pointer}.sources{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.sources .tarjeta a{overflow-wrap:anywhere}
+footer{margin-top:20px;background:#2f4837}footer .contenedor{max-width:1120px}footer p{opacity:1}footer a{color:#c4efd0}
+@media(max-width:760px){.cabecera>.contenedor{display:block}.cabecera nav{margin-top:13px}.cabecera nav a{padding:8px 9px}.hero-cultivo{grid-template-columns:1fr;padding:21px}.hero-photo{height:250px}.tarjetas-grid,.pasos-grid,.cuidados-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cultivos-portada{grid-template-columns:repeat(2,minmax(0,1fr))}.filtros-huerta{grid-template-columns:1fr 1fr}.filtros-huerta label:first-child{grid-column:span 2}.llamada{display:block}.llamada .botonera{justify-content:start}.sources{grid-template-columns:1fr}}
+@media(max-width:520px){.encabezado-pagina{padding:24px 0}.cabecera nav{justify-content:center}.cabecera nav a{font-size:.82rem}.tarjetas-grid,.pasos-grid,.cuidados-grid,.cultivos-grid{grid-template-columns:1fr}.filtros-huerta{grid-template-columns:1fr}.filtros-huerta label:first-child{grid-column:auto}.mini-cultivo img{height:130px}.cultivos-portada{gap:10px}.foto-intro{float:none;width:100%;height:220px;margin:10px 0}.juego{padding:17px}.juego-estado{font-size:.9rem}.pregunta-juego{font-size:1.2rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* V05.1 — Guía ilustrada, autoría del grupo y créditos */
+.siembra-destacada{display:grid;grid-template-columns:minmax(260px,.75fr) minmax(0,1.25fr);align-items:center;gap:24px;padding:28px;background:#f1f7eb;border:1px solid #d2e3cc;border-radius:18px}
+.siembra-intro h2{font:700 clamp(1.65rem,3vw,2.3rem)/1.15 Georgia,serif;color:#295739;margin:12px 0}.siembra-intro p{margin-bottom:20px;color:#425447}.siembra-resumen{width:100%;height:auto;min-width:0;border-radius:13px}
+.equipo-seccion{background:#fff;border:1px solid #d7e5d2;border-radius:20px;padding:30px;box-shadow:var(--sombra)}.equipo-cabecera h2{font:700 clamp(1.8rem,3vw,2.2rem)/1.2 Georgia,serif;color:#295739;margin:10px 0}.equipo-cabecera p{max-width:77ch}.equipo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:23px 0}.integrante{background:#f4f7ed;border:1px solid #d9e4ce;border-radius:15px;padding:22px;text-align:center}.integrante h3{margin:7px 0;color:#2c5d3b}.integrante p{font-size:.85rem}.inicial-integrante{font:700 1.8rem Georgia,serif;display:grid;place-items:center;margin:auto;width:60px;height:60px;border-radius:50%;color:#fff;background:#447953}.tecnologias{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:15px;border-radius:11px;background:#fff8e9;border:1px solid #e8dfc7}.tecnologias>strong{color:#4b5638}.tecnologias span{padding:6px 11px;border-radius:9px;background:white;color:#425b3c;font-size:.89rem}.nota-autoria{color:#5d685d;font-size:.87rem;margin-top:15px}
+.siembra-apertura{padding:25px;border:1px solid #d9e6ce;border-radius:16px;background:#fff}.siembra-apertura h2{color:#2d5c3b;margin:10px 0 14px}.aviso-tecnico{background:#f9f4e6;border-left:4px solid #a98740;padding:16px;margin-top:20px;border-radius:8px}.infografia-visual figure{margin:0}.infografia-visual img{width:100%;height:auto;display:block;border-radius:17px;border:1px solid #d3e3cb}.infografia-visual figcaption{margin-top:9px;font-size:.85rem;color:#617263}.lista-siembra{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin-top:22px}.paso-item{display:flex;align-items:start;gap:14px;background:#fff;border:1px solid #dee6d8;border-radius:14px;padding:21px;min-width:0}.paso-item h3{margin:0 0 9px;color:#2b5f3b}.paso-item p{color:#495849}.paso-numero{flex:0 0 auto;background:#326e49;color:#fff;border-radius:50%;width:37px;height:37px;display:grid;place-items:center;font-weight:800}.bitacora{background:#f0f6ec;border-radius:16px;border:1px solid #d4e6cc;padding:23px}.bitacora h2{color:#2c5b3b}.bitacora .tabla-wrap{margin-top:20px}.bitacora table{background:#fff}.bitacora th,.bitacora td{padding:12px;border:1px solid #e0e8dc}.creditos-imagenes{min-width:590px}
+@media(max-width:830px){.siembra-destacada{grid-template-columns:1fr}.siembra-resumen{max-width:780px;margin:auto}.lista-siembra{grid-template-columns:1fr}}
+@media(max-width:540px){.equipo-seccion{padding:20px}.equipo-grid{grid-template-columns:1fr}.integrante{display:flex;text-align:left;align-items:center;gap:14px;padding:14px}.inicial-integrante{margin:0;width:45px;height:45px;font-size:1.4rem}.integrante h3{margin:0}.siembra-destacada{padding:18px}}
