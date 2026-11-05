@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cyber Racing — Arcade Futurista</title>
+    <style>
+        :root {
+            --bg-dark: #050814;
+            --accent-cyan: #00f0ff;
+            --accent-purple: #a855f7;
+            --danger: #f43f5e;
+            --success: #22c55e;
+            --text-main: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            touch-action: none;
+        }
+
+        #game-container {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            max-height: 850px;
+            background: #02040a;
+            border-left: 2px solid var(--accent-cyan);
+            border-right: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        canvas {
+            display: block;
+            background: #030712;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hud {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            z-index: 10;
+            pointer-events: none;
+            text-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        .hud-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 8, 20, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            z-index: 20;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--accent-cyan);
+            font-size: 2.3rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px var(--accent-cyan);
+            letter-spacing: 2px;
+        }
+
+        p {
+            color: #94a3b8;
+            margin-bottom: 25px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: #050814;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            transition: all 0.2s;
+            margin: 8px 0;
+            width: 100%;
+            max-width: 250px;
+            z-index: 30;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--accent-cyan);
+        }
+
+        #pause-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 15;
+            display: none;
+        }
+
+        .touch-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 140px;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            z-index: 15;
+            pointer-events: none;
+        }
+
+        .touch-btn {
+            width: 90px;
+            height: 90px;
+            background: rgba(0, 240, 255, 0.15);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            pointer-events: auto;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+
+<style id="cibertips-return-style">
+.cibertips-return { position: fixed; z-index: 2147483000; top: 12px; right: 12px; display: inline-flex; align-items: center; justify-content: center; gap: .25rem; max-width: calc(100vw - 24px); padding: .56rem .85rem; border: 1px solid #00f0ff; border-radius: 999px; color: #e6ffff; background: rgba(4,12,28,.93); box-shadow: 0 2px 14px rgba(0,0,0,.6); text-decoration: none; font: 700 12px/1.2 system-ui,sans-serif; letter-spacing: .01em; }
+.cibertips-return:hover { background: #083148; }
+.cibertips-return:focus-visible { outline: 3px solid yellow; outline-offset: 3px; }
+@media (max-width:480px) { .cibertips-return { font-size: 11px; padding: .4rem .6rem; } }
+</style>
+</head>
+<body>
+<a class="cibertips-return" href="index.html#arcade" aria-label="Regresar a la selección de juegos de CiberTips">← Volver a CiberTips</a>
+
+    <div id="game-container">
+        <div class="hud hidden" id="hud">
+            <div class="hud-group">
+                <span>❤️ <span id="lives-display">3</span></span>
+                <span>🛡️ <span id="shield-display">OFF</span></span>
+            </div>
+            <div>
+                <span>SCORE: <span id="score-display">0</span></span>
+            </div>
+        </div>
+
+        <button id="pause-btn" onclick="togglePause()">⏸️</button>
+
+        <canvas id="gameCanvas"></canvas>
+
+        <div class="touch-controls hidden" id="touch-controls">
+            <div class="touch-btn" id="btn-left">◀</div>
+            <div class="touch-btn" id="btn-right">▶</div>
+        </div>
+
+        <div id="start-screen" class="screen">
+            <h1>CYBER RACING</h1>
+            <p>Esquiva los obstáculos rojos, recolecta monedas verdes y activa escudos protectores en esta carrera frenética.</p>
+            <button class="btn" id="start-btn">INICIAR CARRERA</button>
+        </div>
+
+        <div id="pause-screen" class="screen hidden">
+            <h1>JUEGO PAUSADO</h1>
+            <button class="btn" onclick="togglePause()">CONTINUAR</button>
+            <button class="btn" onclick="restartGame()" style="background: var(--danger); color: white;">SALIR</button>
+        </div>
+
+        <div id="gameover-screen" class="screen hidden">
+            <h1 style="color: var(--danger);">SISTEMA COLAPSADO</h1>
+            <p>Tu vehículo chocó contra una amenaza digital.</p>
+            <p style="font-size: 1.2rem; color: var(--accent-cyan);">Puntuación Final: <span id="final-score">0</span></p>
+            <p>Mejor Récord: <span id="high-score">0</span></p>
+            <button class="btn" id="restart-btn">VOLVER A JUGAR</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let gameState = "START"; 
+        let score = 0;
+        let lives = 3;
+        let shieldActive = false;
+        let shieldTimer = 0;
+        let gameSpeed = 6;
+        let roadLineOffset = 0;
+        let highScore = localStorage.getItem("cyber_racing_high") || 0;
+
+        const player = {
+            x: canvas.width / 2 - 25,
+            y: canvas.height - 130,
+            width: 50,
+            height: 80,
+            speed: 8
+        };
+
+        let obstacles = [];
+        let particles = [];
+        let keys = { left: false, right: false };
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = true;
+            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = true;
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = false;
+            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = false;
+        });
+
+        const btnLeft = document.getElementById('btn-left');
+        const btnRight = document.getElementById('btn-right');
+
+        ['touchstart', 'mousedown'].forEach(evt => {
+            btnLeft.addEventListener(evt, (e) => { e.preventDefault(); keys.left = true; });
+            btnRight.addEventListener(evt, (e) => { e.preventDefault(); keys.right = true; });
+        });
+
+        ['touchend', 'mouseup'].forEach(evt => {
+            btnLeft.addEventListener(evt, (e) => { e.preventDefault(); keys.left = false; });
+            btnRight.addEventListener(evt, (e) => { e.preventDefault(); keys.right = false; });
+        });
+
+        function startGame() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('gameover-screen').classList.add('hidden');
+            document.getElementById('pause-screen').classList.add('hidden');
+            document.getElementById('hud').classList.remove('hidden');
+            document.getElementById('touch-controls').classList.remove('hidden');
+            document.getElementById('pause-btn').style.display = 'block';
+
+            score = 0;
+            lives = 3;
+            gameSpeed = 7; 
+            obstacles = [];
+            particles = [];
+            shieldActive = false;
+            player.x = canvas.width / 2 - 25;
+            gameState = "PLAYING";
+            updateHUD();
+        }
+
+        document.getElementById('start-btn').addEventListener('click', startGame);
+        document.getElementById('restart-btn').addEventListener('click', startGame);
+
+        function togglePause() {
+            if (gameState === "PLAYING") {
+                gameState = "PAUSED";
+                document.getElementById('pause-screen').classList.remove('hidden');
+            } else if (gameState === "PAUSED") {
+                gameState = "PLAYING";
+                document.getElementById('pause-screen').classList.add('hidden');
+            }
+        }
+
+        function restartGame() {
+            startGame();
+        }
+
+        function updateHUD() {
+            document.getElementById('lives-display').innerText = lives;
+            document.getElementById('score-display').innerText = Math.floor(score);
+            const shieldEl = document.getElementById('shield-display');
+            if (shieldActive) {
+                shieldEl.innerText = Math.ceil(shieldTimer / 60) + 's';
+                shieldEl.style.color = 'var(--success)';
+            } else {
+                shieldEl.innerText = 'OFF';
+                shieldEl.style.color = 'var(--text-main)';
+            }
+        }
+function spawnEntities() {
+            let spawnRate = Math.max(0.02, 0.05 - (gameSpeed * 0.0015));
+            if (Math.random() < spawnRate) {
+                const laneWidth = canvas.width * 0.75 / 3;
+                const lane = Math.floor(Math.random() * 3);
+                const roadLeft = canvas.width * 0.125;
+                const x = roadLeft + lane * laneWidth + laneWidth / 2 - 20;
+
+                const rand = Math.random();
+                let type = 'obstacle'; 
+                let color = '#f43f5e'; 
+
+                if (rand > 0.82) {
+                    type = 'shield'; 
+                    color = '#22c55e';
+                } else if (rand > 0.45) {
+                    type = 'coin'; 
+                    color = '#22c55e';
+                }
+
+                obstacles.push({
+                    x: x,
+                    y: -100,
+                    width: 40,
+                    height: 40,
+                    type: type,
+                    color: color
+                });
+            }
+        }
+
+        function addParticles() {
+            if (Math.random() < 0.5) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: 0,
+                    speed: Math.random() * 6 + gameSpeed,
+                    size: Math.random() * 2 + 1
+                });
+            }
+        }
+
+        function update() {
+            if (gameState !== "PLAYING") return;
+
+            if (keys.left && player.x > canvas.width * 0.125) {
+                player.x -= player.speed;
+            }
+            if (keys.right && player.x < canvas.width * 0.875 - player.width) {
+                player.x += player.speed;
+            }
+
+            gameSpeed += 0.0035;
+            score += 0.2;
+
+            if (shieldActive) {
+                shieldTimer--;
+                if (shieldTimer <= 0) shieldActive = false;
+            }
+
+            roadLineOffset = (roadLineOffset + gameSpeed) % 40;
+
+            addParticles();
+            spawnEntities();
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].y += particles[i].speed;
+                if (particles[i].y > canvas.height) particles.splice(i, 1);
+            }
+
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                let obs = obstacles[i];
+                obs.y += gameSpeed;
+
+                if (
+                    player.x < obs.x + obs.width &&
+                    player.x + player.width > obs.x &&
+                    player.y < obs.y + obs.height &&
+                    player.y + player.height > obs.y
+                ) {
+                    if (obs.type === 'obstacle') {
+                        if (shieldActive) {
+                            shieldActive = false; 
+                        } else {
+                            lives--;
+                            if (lives <= 0) {
+                                triggerGameOver();
+                            }
+                        }
+                    } else if (obs.type === 'coin') {
+                        score += 100; 
+                    } else if (obs.type === 'shield') {
+                        shieldActive = true;
+                        shieldTimer = 300; 
+                    }
+                    obstacles.splice(i, 1);
+                    continue;
+                }
+
+                if (obs.y > canvas.height) {
+                    obstacles.splice(i, 1);
+                }
+            }
+
+            updateHUD();
+        }
+
+        function triggerGameOver() {
+            gameState = "GAMEOVER";
+            document.getElementById('hud').classList.add('hidden');
+            document.getElementById('touch-controls').classList.add('hidden');
+            document.getElementById('pause-btn').style.display = 'none';
+            document.getElementById('gameover-screen').classList.remove('hidden');
+
+            const finalScoreVal = Math.floor(score);
+            document.getElementById('final-score').innerText = finalScoreVal;
+
+            if (finalScoreVal > highScore) {
+                highScore = finalScoreVal;
+                localStorage.setItem("cyber_racing_high", highScore);
+            }
+            document.getElementById('high-score').innerText = highScore;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#030712";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const roadLeft = canvas.width * 0.125;
+            const roadWidth = canvas.width * 0.75;
+            
+            ctx.fillStyle = "#090d1f";
+            ctx.fillRect(roadLeft, 0, roadWidth, canvas.height);
+
+            ctx.strokeStyle = "#00f0ff";
+            ctx.lineWidth = 3;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = "#00f0ff";
+            ctx.beginPath();
+            ctx.moveTo(roadLeft, 0);
+            ctx.lineTo(roadLeft, canvas.height);
+            ctx.moveTo(roadLeft + roadWidth, 0);
+            ctx.lineTo(roadLeft + roadWidth, canvas.height);
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+
+            ctx.strokeStyle = "rgba(168, 85, 247, 0.4)";
+            ctx.lineWidth = 2;
+            ctx.setLineDash([20, 20]);
+            ctx.lineDashOffset = -roadLineOffset;
+            
+            for (let i = 1; i < 3; i++) {
+                let laneX = roadLeft + (roadWidth / 3) * i;
+                ctx.beginPath();
+                ctx.moveTo(laneX, 0);
+                ctx.lineTo(laneX, canvas.height);
+                ctx.stroke();
+            }
+            ctx.setLineDash([]);
+
+            ctx.fillStyle = "rgba(0, 240, 255, 0.5)";
+            particles.forEach(p => {
+                ctx.fillRect(p.x, p.y, p.size, p.size * 3);
+            });
+
+            obstacles.forEach(obs => {
+                ctx.save();
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = obs.color;
+                ctx.fillStyle = obs.color;
+
+                if (obs.type === 'obstacle') {
+                    ctx.beginPath();
+                    ctx.roundRect(obs.x, obs.y, obs.width, obs.height, 8);
+                    ctx.fill();
+                    ctx.fillStyle = "#050814";
+                    ctx.fillRect(obs.x + 8, obs.y + 8, obs.width - 16, obs.height - 16);
+                } else if (obs.type === 'coin') {
+                    ctx.beginPath();
+                    ctx.arc(obs.x + obs.width/2, obs.y + obs.height/2, obs.width/2, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = "#050814";
+                    ctx.font = "bold 16px sans-serif";
+                    ctx.fillText("$", obs.x + 14, obs.y + 26);
+                } else if (obs.type === 'shield') {
+                    ctx.beginPath();
+                    ctx.arc(obs.x + obs.width/2, obs.y + obs.height/2, obs.width/2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            });
+
+            ctx.save();
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = shieldActive ? "#22c55e" : "#00f0ff";
+            
+            ctx.fillStyle = shieldActive ? "#22c55e" : "#00f0ff";
+            ctx.beginPath();
+            ctx.roundRect(player.x, player.y, player.width, player.height, 12);
+            ctx.fill();
+
+            ctx.fillStyle = "#050814";
+            ctx.beginPath();
+            ctx.roundRect(player.x + 10, player.y + 20, player.width - 20, player.height - 35, 6);
+            ctx.fill();
+
+            ctx.fillStyle = "#f43f5e";
+            ctx.fillRect(player.x + 5, player.y + player.height - 5, 10, 4);
+            ctx.fillRect(player.x + player.width - 15, player.y + player.height - 5, 10, 4);
+
+            ctx.restore();
+        }
+
+        function loop() {
+            update();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+        loop();
+    </script>
+</body>
+</html>

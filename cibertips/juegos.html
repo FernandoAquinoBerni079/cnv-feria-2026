@@ -1,0 +1,409 @@
+        <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Interactiva — CiberTips</title>
+    <link rel="stylesheet" href="css/juegos.css">
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <h1 class="logo">🛡️ CiberTips / Navegá Seguro</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="riesgos.html">Riesgos y Guía</a></li>
+                    <li><a href="juegos.html" class="active">Evaluación</a></li>
+                    <li><a href="index.html#arcade">Arcade</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- PASO 1: Formulario de Registro -->
+        <section class="tech-box-info" id="form-section">
+            <h2>Evaluación Interactiva — CiberTips</h2>
+            <p class="subtitle-info">Asignatura: Ciberseguridad e Informática — 1.º BTI — CNV — 2026</p>
+            
+            <div class="instructions-box">
+                <h4>🎯 INSTRUCCIONES</h4>
+                <ul>
+                    <li>📌 <strong>15 preguntas</strong> de opción múltiple con retroalimentación inmediata.</li>
+                    <li>⚡ <strong>Feedback inmediato</strong> explicando por qué es correcta o incorrecta cada respuesta.</li>
+                    <li>⏱️ <strong>30 segundos</strong> por cada pregunta.</li>
+                    <li>📱 Al finalizar, podés compartir voluntariamente tus resultados por WhatsApp. No ingreses información personal.</li>
+                </ul>
+            </div>
+            
+            <div class="form-group">
+                <label for="nombre_jugador">Alias para la evaluación (opcional):</label>
+                <input type="text" id="nombre_jugador" placeholder="Ej. Explorador digital">
+            </div>
+
+            <div class="form-group">
+                <label for="curso_jugador">Curso / Sección:</label>
+                <input type="text" id="curso_jugador" value="1.º BTI">
+            </div>
+
+            <div class="form-group">
+                <label for="juego_favorito">Tema o riesgo de mayor interés:</label>
+                <select id="juego_favorito">
+                    <option value="">Seleccione una opción...</option>
+                    <option value="phishing">Detección de Phishing</option>
+                    <option value="pass">Creación de Contraseñas Seguras</option>
+                    <option value="privacidad">Protección de Privacidad Digital</option>
+                    <option value="redes">Seguridad en Redes Sociales</option>
+                    <option value="estafas">Identificación de Estafas Online</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="comentario_juego">Observaciones del proyecto:</label>
+                <textarea id="comentario_juego" rows="2">Excelente proyecto interactivo de ciberseguridad.</textarea>
+            </div>
+
+            <button type="button" class="btn-tech" onclick="iniciarEvaluacionDirecta()">INICIAR EVALUACIÓN →</button>
+
+            <div class="nav-shortcuts">
+                <a href="riesgos.html" class="btn-shortcut">⚠️ Ir a Riesgos y Guía</a>
+                <a href="index.html" class="btn-shortcut">🏠 Volver a Inicio</a>
+            </div>
+        </section>
+
+        <!-- PASO 2: Zona de Preguntas -->
+        <section class="tech-box-info hidden" id="game-section">
+            <div class="game-header">
+                <span class="question-number" id="question-count">Pregunta 1 de 15</span>
+                <span class="timer-badge" id="timer">⏱️ 30s</span>
+            </div>
+
+            <div class="question-meta">
+                <span id="question-type">Opción Múltiple</span>
+                <span id="score-live">Puntaje: 0.00 / 15.00</span>
+            </div>
+
+            <div class="question" id="question-text">Cargando pregunta...</div>
+            
+            <div class="options" id="options-container"></div>
+            
+            <div id="feedback-container" class="feedback-box hidden"></div>
+            
+            <button id="next-btn" class="btn-tech hidden" onclick="siguientePregunta()">SIGUIENTE PREGUNTA →</button>
+        </section>
+
+        <!-- PASO 3: Resultados Finales -->
+        <section class="tech-box-info hidden" id="result-section">
+            <div class="score-card">
+                <h3 id="result-student-name" style="color: var(--text-main); margin-bottom: 0.5rem;">Estudiante</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Resultado Final de la Evaluación</p>
+                
+                <div class="score-number" id="final-score-display">0.00</div>
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">puntos sobre 15.00</p>
+                <div id="grade-badge" style="font-size: 1.2rem; font-weight: bold; color: var(--accent-cyan); margin-bottom: 1.5rem;">Sobresaliente 📚</div>
+                
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value" id="correct-count" style="color: var(--success);">0</div>
+                        <div class="stat-label">Respuestas Correctas</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="incorrect-count" style="color: var(--danger);">0</div>
+                        <div class="stat-label">Respuestas Incorrectas</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="percentage-count">0%</div>
+                        <div class="stat-label">Porcentaje Logrado</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="time-spent">0m 0s</div>
+                        <div class="stat-label">Tiempo Empleado</div>
+                    </div>
+                </div>
+
+                <a id="whatsapp-btn" href="#" target="_blank" class="btn-whatsapp">💬 COMPARTIR RESULTADOS (OPCIONAL)</a>
+                
+                <div class="nav-shortcuts" style="margin-top: 1.5rem;">
+                    <button class="btn-shortcut" onclick="location.reload()">🔄 Reiniciar Evaluación</button>
+                    <a href="index.html" class="btn-shortcut">🏠 Volver a Inicio</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Proyecto Feria de Informática 2026 | 1.º BTI — Colegio Nacional de Villarrica</p>
+        </div>
+    </footer>
+
+    <script>
+        const questions = [
+            {
+                q: "¿Qué práctica maliciosa utiliza correos electrónicos o mensajes falsos para robar contraseñas?",
+                options: ["Firewall", "Phishing", "Copia de seguridad en la nube", "Antivirus"],
+                correct: 1,
+                explanation: "Correcto. El Phishing es la técnica de suplantación de identidad mediante mensajes falsos para obtener credenciales."
+            },
+            {
+                q: "¿Cuál de las siguientes opciones representa una contraseña realmente segura?",
+                options: ["12345678", "contraseña123", "P$9mK#2vX!z*9", "fechadenacimiento"],
+                correct: 2,
+                explanation: "Correcto. Una contraseña fuerte combina mayúsculas, minúsculas, números y símbolos especiales."
+            },
+            {
+                q: "¿Qué tipo de software busca dañar o infiltrarse en tu dispositivo sin tu consentimiento?",
+                options: ["Malware", "Navegador web", "Procesador de texto", "Reproductor multimedia"],
+                correct: 0,
+                explanation: "Correcto. El Malware engloba cualquier programa malicioso como virus, troyanos y spyware."
+            },
+            {
+                q: "¿Qué debés hacer si recibís un enlace sospechoso de un desconocido en redes sociales?",
+                options: ["Abrirlo por curiosidad", "Ignorarlo y no hacer clic", "Reenviarlo a tus contactos", "Responder con tus datos"],
+                correct: 1,
+                explanation: "Correcto. Ignorar enlaces sospechosos evita infecciones o robo de datos personales."
+            },
+            {
+                q: "¿Qué significa tener habilitada la Autenticación de Dos Factores (2FA)?",
+                options: ["Usar dos contraseñas iguales en tus cuentas", "Un paso extra de verificación al iniciar sesión", "Tener dos cuentas abiertas simultáneamente", "Compartir tu cuenta con un amigo"],
+                correct: 1,
+                explanation: "Correcto. El 2FA añade una capa de seguridad pidiendo una segunda confirmación de identidad."
+            },
+            {
+                q: "¿Cuál es la medida más prudente al usar una red Wi-Fi pública?",
+                options: ["Confiar en cualquier página que se abra", "Preferir datos móviles para operaciones sensibles y comprobar que la conexión sea HTTPS", "Desactivar el bloqueo del dispositivo", "Compartir los códigos de verificación con otros usuarios"],
+                correct: 1,
+                explanation: "Las redes públicas pueden presentar riesgos. Para operaciones sensibles, preferí una conexión propia y verificá la dirección y HTTPS; el cifrado reduce algunos riesgos, pero no elimina el phishing."
+            },
+            {
+                q: "¿Qué es la huella digital en Internet?",
+                options: ["El sensor táctil de tu celular", "El rastro de información y datos que dejás al navegar", "Una fotografía en alta resolución de tu mano", "El brillo de la pantalla"],
+                correct: 1,
+                explanation: "Correcto. La huella digital comprende todo el historial, publicaciones y registros que generás online."
+            },
+            {
+                q: "Si una página web te promete un teléfono costoso gratis a cambio de tus datos, se trata de:",
+                options: ["Una oferta real de marketing", "Una estafa digital o phishing", "Un sorteo autorizado por el gobierno", "Un premio por tu cumpleaños"],
+                correct: 1,
+                explanation: "Correcto. Las promesas exageradas en Internet son ganchos típicos de estafas y phishing."
+            },
+            {
+                q: "¿Por qué es fundamental mantener actualizado el sistema operativo de tu dispositivo?",
+                options: ["Para cambiar el color de los iconos", "Para corregir fallas críticas de seguridad", "Para hacer que la batería dure menos", "Para ocupar espacio en el disco"],
+                correct: 1,
+                explanation: "Correcto. Las actualizaciones parchean vulnerabilidades que los ciberdelincuentes explotan."
+            },
+            {
+                q: "¿Qué indica que una dirección web utiliza HTTPS?",
+                options: ["Que la conexión va cifrada, pero no garantiza que el sitio sea legítimo", "Que el sitio no puede ser fraudulento", "Que todos sus anuncios son confiables", "Que el propietario está verificado por el banco"],
+                correct: 0,
+                explanation: "HTTPS cifra la conexión, pero una página de estafa también puede usar HTTPS. Comprobá además la dirección y la autenticidad del sitio."
+            },
+            {
+                q: "¿Qué es el Ransomware?",
+                options: ["Un programa antivirus gratuito", "Un malware que secuestra tus archivos y exige un rescate económico", "Una red social corporativa", "Un tipo de memoria RAM rápida"],
+                correct: 1,
+                explanation: "Correcto. El Ransomware cifra la información del equipo y pide pago de rescate para liberarla."
+            },
+            {
+                q: "¿Cuál es una buena práctica para proteger la privacidad en tus redes sociales?",
+                options: ["Aceptar solicitudes de cualquier persona", "Configurar el perfil como privado y limitar datos personales", "Publicar tu dirección y número de teléfono en público", "Compartir tus contraseñas con seguidores"],
+                correct: 1,
+                explanation: "Correcto. Configurar perfiles privados limita el acceso de desconocidos a tu información íntima."
+            },
+            {
+                q: "¿Cuándo conviene cambiar una contraseña de una cuenta?",
+                options: ["Si sospechás que fue robada o hay evidencia de filtración", "Obligatoriamente cada 3 meses", "Cada vez que encendés la PC", "Nunca, aunque haya una filtración"],
+                correct: 0,
+                explanation: "La clave debe cambiarse cuando hay sospechas o evidencias de compromiso. No se recomiendan cambios periódicos arbitrarios de contraseñas seguras."
+            },
+            {
+                q: "¿Qué nombre recibe el fraude de suplantación de identidad realizado a través de mensajes de texto SMS?",
+                options: ["Pharming", "SmiShing", "Spam", "Malware móvil"],
+                correct: 1,
+                explanation: "Correcto. El SmiShing utiliza mensajes SMS fraudulentos para engañar a los usuarios."
+            },
+            {
+                q: "¿Qué debés hacer inmediatamente si sospechás que una de tus cuentas fue hackeada?",
+                options: ["Cambiar tu contraseña de inmediato y cerrar sesiones activas", "Esperar a ver si se soluciona solo", "Apagar el monitor", "Eliminar tu cuenta de correo principal"],
+                correct: 0,
+                explanation: "Correcto. Actuar rápido cambiando credenciales bloquea el acceso continuo del intruso."
+            }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        let playerName = "";
+        let playerCourse = "";
+        let timeLeft = 30;
+        let timerInterval;
+        let startTime;
+        let answered = false;
+
+        const letras = ["A", "B", "C", "D"];
+
+        function iniciarEvaluacionDirecta() {
+            playerName = document.getElementById("nombre_jugador").value.trim();
+            playerCourse = document.getElementById("curso_jugador").value.trim();
+
+            if (!playerName) playerName = "Visitante";
+
+            document.getElementById("form-section").classList.add("hidden");
+            document.getElementById("game-section").classList.remove("hidden");
+            
+            startTime = new Date();
+            loadQuestion();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 30;
+            const timerEl = document.getElementById("timer");
+            timerEl.innerText = `⏱️ ${timeLeft}s`;
+            timerEl.classList.remove("warning");
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.innerText = `⏱️ ${timeLeft}s`;
+
+                if (timeLeft <= 10) {
+                    timerEl.classList.add("warning");
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    autoFailTimeOut();
+                }
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            if (currentQ >= questions.length) {
+                finishGame();
+                return;
+            }
+
+            answered = false;
+            const q = questions[currentQ];
+            document.getElementById("question-count").innerText = `Pregunta ${currentQ + 1} de ${questions.length}`;
+            document.getElementById("score-live").innerText = `Puntaje: ${score.toFixed(2)} / 15.00`;
+            document.getElementById("question-text").innerText = q.q;
+            
+            const container = document.getElementById("options-container");
+            container.innerHTML = "";
+            
+            const feedbackDiv = document.getElementById("feedback-container");
+            feedbackDiv.classList.add("hidden");
+            feedbackDiv.innerText = "";
+            feedbackDiv.className = "feedback-box hidden";
+
+            document.getElementById("next-btn").classList.add("hidden");
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement("button");
+                btn.className = "btn-opt";
+                btn.innerHTML = `<span class="opt-letter">${letras[index]}</span> <span>${opt}</span>`;
+                btn.onclick = () => checkAnswer(index, q.correct, q.explanation);
+                container.appendChild(btn);
+            });
+
+            startTimer();
+        }
+
+        function checkAnswer(selected, correct, explanation) {
+            if (answered) return;
+            answered = true;
+            clearInterval(timerInterval);
+
+            const buttons = document.querySelectorAll(".btn-opt");
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === correct) {
+                    btn.classList.add("correct");
+                } else if (idx === selected) {
+                    btn.classList.add("incorrect");
+                }
+            });
+
+            const feedbackDiv = document.getElementById("feedback-container");
+            const scoreLive = document.getElementById("score-live");
+
+            if (selected === correct) {
+                score += 1.0;
+                feedbackDiv.className = "feedback-box correct";
+                feedbackDiv.innerHTML = `✔️ <strong>¡Correcto! (+1.00 pt)</strong><br>${explanation.replace(/^Correcto\.\s*/i, "")}`;
+            } else {
+                feedbackDiv.className = "feedback-box incorrect";
+                feedbackDiv.innerHTML = `❌ <strong>Incorrecto.</strong><br>${explanation.replace(/^Correcto\.\s*/i, "")}`;
+            }
+
+            feedbackDiv.classList.remove("hidden");
+            scoreLive.innerText = `Puntaje: ${score.toFixed(2)} / 15.00`;
+
+            document.getElementById("next-btn").classList.remove("hidden");
+        }
+
+        function autoFailTimeOut() {
+            if (answered) return;
+            answered = true;
+
+            const q = questions[currentQ];
+            const buttons = document.querySelectorAll(".btn-opt");
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.correct) {
+                    btn.classList.add("correct");
+                }
+            });
+
+            const feedbackDiv = document.getElementById("feedback-container");
+            feedbackDiv.className = "feedback-box incorrect";
+            feedbackDiv.innerHTML = `⏰ <strong>¡Tiempo agotado! (0.00 pt)</strong><br>${q.explanation.replace(/^Correcto\.\s*/i, "")}`;
+            feedbackDiv.classList.remove("hidden");
+
+            document.getElementById("next-btn").classList.remove("hidden");
+        }
+
+        function siguientePregunta() {
+            currentQ++;
+            loadQuestion();
+        }
+
+        function finishGame() {
+            clearInterval(timerInterval);
+            document.getElementById("game-section").classList.add("hidden");
+            document.getElementById("result-section").classList.remove("hidden");
+
+            const endTime = new Date();
+            const totalSeconds = Math.floor((endTime - startTime) / 1000);
+            const mins = Math.floor(totalSeconds / 60);
+            const secs = totalSeconds % 60;
+
+            const correctCount = Math.round(score);
+            const incorrectCount = questions.length - correctCount;
+            const percentage = Math.round((score / questions.length) * 100);
+
+            document.getElementById("result-student-name").innerText = playerName;
+            document.getElementById("final-score-display").innerText = score.toFixed(2);
+            document.getElementById("correct-count").innerText = correctCount;
+            document.getElementById("incorrect-count").innerText = incorrectCount;
+            document.getElementById("percentage-count").innerText = percentage + "%";
+            document.getElementById("time-spent").innerText = `${mins}m ${secs}s`;
+
+            let gradeText = "Insuficiente ❌";
+            if (percentage >= 90) gradeText = "Sobresaliente 🏆";
+            else if (percentage >= 75) gradeText = "Muy Bueno 🌟";
+            else if (percentage >= 60) gradeText = "Bueno 👍";
+            else if (percentage >= 50) gradeText = "Suficiente 📚";
+            document.getElementById("grade-badge").innerText = gradeText;
+
+            const mensajeWp = encodeURIComponent(`Hola, soy ${playerName}. Acabo de completar la Evaluación Interactiva Cibertips con un puntaje de ${score.toFixed(2)} / 15.00 (${percentage}% - ${correctCount} correctas, ${incorrectCount} incorrectas) en un tiempo de ${mins}m ${secs}s.`);
+            document.getElementById("whatsapp-btn").href = `https://api.whatsapp.com/send?text=${mensajeWp}`;
+        }
+    </script>
+</body>
+</html>

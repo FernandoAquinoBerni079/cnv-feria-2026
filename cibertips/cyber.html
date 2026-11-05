@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBER WORLD | Protocolo Omega 20</title>
+<style>
+:root{--cyan:#00f5ff;--pink:#ff2bd6;--lime:#b7ff3c;--panel:rgba(4,12,25,.88)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#030711;color:#eafaff;font-family:Arial,Helvetica,sans-serif}
+canvas{display:block}#hud{position:fixed;inset:0;pointer-events:none;text-shadow:0 0 8px #00d9ff}
+.panel{background:linear-gradient(135deg,rgba(4,14,30,.92),rgba(9,20,42,.58));border:1px solid rgba(0,245,255,.55);box-shadow:0 0 18px rgba(0,245,255,.13),inset 0 0 20px rgba(0,245,255,.04);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+#topLeft{position:absolute;left:18px;top:18px;padding:12px 16px;width:245px}
+.brand{font-size:12px;letter-spacing:4px;color:var(--cyan)}.big{font-weight:900;font-size:28px;letter-spacing:1px}.muted{color:#8eafc5;font-size:11px;letter-spacing:1.4px}
+.bar{height:10px;background:#142538;border:1px solid #466174;margin:5px 0 9px;overflow:hidden}.fill{height:100%;width:100%;transition:width .15s}.hp{background:linear-gradient(90deg,#ff315b,#ff8c5b)}.armor{background:linear-gradient(90deg,#00aaff,#00fff0)}
+#topRight{position:absolute;right:18px;top:18px;text-align:right;padding:12px 16px;min-width:190px}
+#objective{position:absolute;top:20px;left:50%;transform:translateX(-50%);text-align:center;padding:10px 24px;min-width:260px}
+#bottom{position:absolute;bottom:18px;left:18px;display:flex;gap:10px;align-items:end}
+.stat{padding:10px 14px;min-width:105px}.stat strong{font-size:22px;display:block}
+#weapon{position:absolute;bottom:24px;right:24px;text-align:right;padding:12px 18px;min-width:210px}
+#inventory{position:absolute;bottom:96px;right:24px;display:flex;gap:8px;pointer-events:auto}
+.invSlot{width:56px;height:56px;background:rgba(4,14,30,.85);border:1px solid #466174;display:grid;place-items:center;font-size:10px;color:#8eafc5;cursor:pointer;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.invSlot.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,245,255,.15);box-shadow:0 0 10px rgba(0,245,255,.3)}
+#crosshair{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:24px;height:24px;opacity:.92}
+#crosshair:before,#crosshair:after{content:"";position:absolute;background:var(--lime);box-shadow:0 0 10px var(--lime)}
+#crosshair:before{left:11px;top:1px;width:2px;height:22px}#crosshair:after{top:11px;left:1px;width:22px;height:2px}
+
+#sniperScope{position:fixed;inset:0;background:radial-gradient(circle, transparent 25%, rgba(0,0,0,0.92) 55%, #000 80%);display:none;pointer-events:none;z-index:15}
+#sniperScope:before{content:"";position:absolute;inset:0;border:3px solid rgba(0,245,255,.6);background:linear-gradient(0deg,transparent 48%,rgba(0,245,255,.8) 50%,transparent 52%),linear-gradient(90deg,transparent 48%,rgba(0,245,255,.8) 50%,transparent 52%)}
+#sniperScope:after{content:"MIRA TÁCTICA X8";position:absolute;bottom:35%;left:50%;transform:translateX(-50%);color:var(--cyan);font-size:12px;letter-spacing:4px}
+
+#hitmarker{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:32px;color:#fff;opacity:0}
+#toast{position:absolute;top:25%;left:50%;transform:translateX(-50%);font-size:22px;letter-spacing:3px;color:var(--lime);opacity:0;text-align:center}
+#damage{position:absolute;inset:0;border:0 solid rgba(255,20,65,0);transition:border .1s}
+#startScreen,#endScreen{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(5,24,47,.95),rgba(1,4,12,.99))}
+#endScreen{display:none}
+.modal{width:min(680px,92vw);padding:32px;background:rgba(3,10,23,.95);border:1px solid var(--cyan);box-shadow:0 0 50px #00d9ff22;text-align:center;clip-path:polygon(0 0,calc(100% - 24px) 0,100% 24px,100% 100%,24px 100%,0 calc(100% - 24px))}
+h1{margin:5px 0;font-size:clamp(34px,7vw,62px);letter-spacing:5px;line-height:1;color:#f5ffff;text-shadow:0 0 20px var(--cyan)}h1 span{color:var(--cyan)}.sub{color:var(--pink);letter-spacing:5px;font-size:12px;margin:14px 0 22px}
+p{line-height:1.6;color:#b8cddd}.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;text-align:left;margin:22px auto;max-width:480px}.controls div{padding:9px;background:#0b1b2d;border-left:2px solid var(--cyan);font-size:12px;color:#c4d9e7}
+button{border:1px solid var(--cyan);background:linear-gradient(90deg,#073047,#0d2238);color:white;padding:14px 28px;font-weight:bold;letter-spacing:3px;cursor:pointer;box-shadow:0 0 20px #00f5ff22}button:hover{background:#07445a}
+#mobile{display:none;position:fixed;inset:0;z-index:12;pointer-events:none}.touchBtn{pointer-events:auto;position:absolute;border:1px solid #00f5ff88;background:#04172aaa;border-radius:50%;width:64px;height:64px;display:grid;place-items:center;color:#fff;font-size:12px;touch-action:none}
+#stick{left:24px;bottom:30px;width:110px;height:110px}.tShoot{right:24px;bottom:45px}.tReload{right:95px;bottom:125px}.tCover{right:24px;bottom:125px}.tJump{right:95px;bottom:45px}.tCrouch{left:150px;bottom:45px}
+@media(max-width:700px){#mobile{display:block}}
+</style>
+
+<style id="cibertips-return-style">
+.cibertips-return { position: fixed; z-index: 2147483000; top: 12px; right: 12px; display: inline-flex; align-items: center; justify-content: center; gap: .25rem; max-width: calc(100vw - 24px); padding: .56rem .85rem; border: 1px solid #00f0ff; border-radius: 999px; color: #e6ffff; background: rgba(4,12,28,.93); box-shadow: 0 2px 14px rgba(0,0,0,.6); text-decoration: none; font: 700 12px/1.2 system-ui,sans-serif; letter-spacing: .01em; }
+.cibertips-return:hover { background: #083148; }
+.cibertips-return:focus-visible { outline: 3px solid yellow; outline-offset: 3px; }
+@media (max-width:480px) { .cibertips-return { font-size: 11px; padding: .4rem .6rem; } }
+</style>
+</head>
+<body>
+<a class="cibertips-return" href="index.html#arcade" aria-label="Regresar a la selección de juegos de CiberTips">← Volver a CiberTips</a>
+<div id="sniperScope"></div>
+<div id="hud">
+ <div id="topLeft" class="panel"><div class="brand">CYBER WORLD // COMBAT UI</div><div class="big">HP <span id="hpText">100</span><small style="font-size:12px;color:#ff718d"> / 100</small></div><div class="bar"><div id="hpBar" class="fill hp"></div></div><div class="muted">ESCUDO TÁCTICO <b id="shieldText">50</b></div><div class="bar"><div id="shieldBar" class="fill armor" style="width:50%"></div></div></div>
+ <div id="objective" class="panel"><div class="brand">PROTOCOLO DE SUPERVIVENCIA</div><div class="big">RONDA <span id="roundText">1</span><span style="color:#647d91"> / 20</span></div><div class="muted" id="objectiveText">ELIMINAR 10 ROBOTS</div></div>
+ <div id="topRight" class="panel"><div class="brand">SECTOR // R-28</div><div class="big"><span id="roundKills">0</span><span style="font-size:12px;color:#9bb6c9"> / <span id="targetKills">10</span></span></div><div class="muted">ACTIVOS: <b id="enemyCount">0</b></div><div class="muted">PUNTOS: <b id="score">000000</b></div></div>
+ <div id="bottom"><div class="panel stat"><span class="muted">MUNICIÓN</span><strong><span id="ammo">30</span><span style="color:#66879b;font-size:13px"> / <span id="reserve">180</span></span></strong></div><div class="panel stat"><span class="muted">ESTADO</span><strong id="status" style="color:var(--lime);font-size:16px">LISTO</strong></div></div>
+ <div id="weapon" class="panel"><div class="brand">INVENTARIO</div><div class="big" style="font-size:21px" id="weaponName">PULSE RIFLE</div><div class="muted">1: RIFLE VISO · 2: FRANCO · R: RECARGAR</div></div>
+ <div id="inventory">
+  <div id="slot1" class="invSlot active" onclick="switchWeapon(0)">RIFLE</div>
+  <div id="slot2" class="invSlot" onclick="switchWeapon(1)">FRANCO</div>
+ </div>
+ <div id="crosshair"></div><div id="hitmarker">×</div><div id="toast"></div><div id="damage"></div>
+</div>
+<div id="startScreen"><div class="modal"><div class="brand">SIMULADOR TÁCTICO // CIBERSEGURIDAD</div><h1>CYBER <span>WORLD</span></h1><div class="sub">PROTOCOLO OMEGA 20 · MODO HORDAS</div><p>Monstruos robóticos grises y oscuros con armas láser. ¡Avanza poco a poco por las rondas, sobrevive al cambio de arena colorido en la ronda 10 y derrota al Titán Omega en la ronda 20!</p><div class="controls"><div><b>W A S D</b> — Moverse</div><div><b>MOUSE</b> — Apuntar / Mirar</div><div><b>1 / 2</b> — Rifle / Franco con Mira</div><div><b>CLICK</b> — Disparar con láser</div><div><b>ESPACIO</b> — Salto alto</div><div><b>SHIFT</b> — Agacharse</div><div><b>C</b> — Cobertura</div><div><b>ESC</b> — Liberar el mouse para volver al arcade</div></div><button id="startBtn">INICIAR MISIÓN</button></div></div>
+<div id="endScreen"><div class="modal"><div class="brand">REPORTE DE MISIÓN</div><h1 id="endTitle">MISIÓN <span>COMPLETA</span></h1><p id="endText"></p><button id="againBtn">VOLVER A JUGAR</button></div></div>
+<div id="mobile"><div id="stick" class="touchBtn">MOVER</div><div id="shootBtn" class="touchBtn tShoot">DISPARAR</div><div id="reloadBtn" class="touchBtn tReload">RECARGA</div><div id="coverBtn" class="touchBtn tCover">CUBRIR</div><div id="jumpBtn" class="touchBtn tJump">SALTO</div><div id="crouchBtn" class="touchBtn tCrouch" style="left:80px;bottom:125px">AGACH</div></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+let switchWeapon;
+(() => {
+'use strict';
+const $=id=>document.getElementById(id);
+let scene,camera,renderer,clock,player,gunGroup,enemies=[],enemyBullets=[],effects=[],audioCtx=null;
+let running=false, gameOver=false, loopStarted=false, round=1, roundKills=0, targetKills=10, score=0, hp=100, shield=50;
+let currentWeapon=0;
+let weapons=[
+ {name:'CYBER RIFLE',ammo:30,maxAmmo:30,reserve:180,damage:35,cooldown:.12,reloadTime:1.5},
+ {name:'SNIPER X8',ammo:5,maxAmmo:5,reserve:45,damage:150,cooldown:.8,reloadTime:2.2}
+];
+let reloading=false, reloadTimer=0, shootCooldown=0, enemySpawnTimer=0, cover=false, crouch=false, jumpY=0, jumpV=0;
+let yaw=0,pitch=0,keys={},lastDamage=0,damageFlash=0,toastTimer=0,moveTouch={x:0,y:0},touchLook=null;
+let floorMesh, gridMesh, ambientLight, dirLight, neonLights=[];
+const raycaster=new THREE.Raycaster(), center=new THREE.Vector2(0,0);
+
+function playSound(type){
+ if(!audioCtx)return;
+ try{
+  let osc=audioCtx.createOscillator(), gain=audioCtx.createGain();
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  let now=audioCtx.currentTime;
+  if(type==='shoot1'){
+   osc.type='sawtooth'; osc.frequency.setValueAtTime(440,now); osc.frequency.exponentialRampToValueAtTime(80,now+.12);
+   gain.gain.setValueAtTime(0.18,now); gain.gain.linearRampToValueAtTime(0.01,now+.12);
+   osc.start(now); osc.stop(now+.12);
+  }else if(type==='shoot2'){
+   osc.type='square'; osc.frequency.setValueAtTime(700,now); osc.frequency.exponentialRampToValueAtTime(50,now+.3);
+   gain.gain.setValueAtTime(0.25,now); gain.gain.linearRampToValueAtTime(0.01,now+.3);
+   osc.start(now); osc.stop(now+.3);
+  }else if(type==='laser'){
+   osc.type='sine'; osc.frequency.setValueAtTime(800,now); osc.frequency.exponentialRampToValueAtTime(200,now+.15);
+   gain.gain.setValueAtTime(0.1,now); gain.gain.linearRampToValueAtTime(0.01,now+.15);
+   osc.start(now); osc.stop(now+.15);
+  }else if(type==='hurt'){
+   osc.type='triangle'; osc.frequency.setValueAtTime(150,now); osc.frequency.linearRampToValueAtTime(40,now+.2);
+   gain.gain.setValueAtTime(0.2,now); gain.gain.linearRampToValueAtTime(0.01,now+.2);
+   osc.start(now); osc.stop(now+.2);
+  }else if(type==='reload'){
+   osc.type='sine'; osc.frequency.setValueAtTime(300,now); osc.frequency.setValueAtTime(500,now+.1);
+   gain.gain.setValueAtTime(0.1,now); gain.gain.linearRampToValueAtTime(0.01,now+.2);
+   osc.start(now); osc.stop(now+.2);
+  }
+ }catch(e){}
+}
+
+const mat=(color,roughness=.5,metalness=.4,emissive=0)=>new THREE.MeshStandardMaterial({color,roughness,metalness,emissive,emissiveIntensity:emissive?1.2:0});
+const mats={
+ floorDark:mat(0x0b0e14),
+ darkRobot:mat(0x1a1f26,.3,.8),
+ grayRobot:mat(0x2f3640,.3,.8),
+ weaponBody:mat(0x11161d,.2,.9),
+ weaponNeon:mat(0x00f5ff,.2,.8,1.5),
+ sniperNeon:mat(0xff2bd6,.2,.8,1.5),
+ laserRed:mat(0xff0033,.1,.5,2.0)
+};
+
+function box(w,h,d,material,x,y,z){let o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;scene.add(o);return o}
+
+function buildWorld(){
+ scene=new THREE.Scene(); scene.background=new THREE.Color(0x020408); scene.fog=new THREE.Fog(0x020408,40,160);
+ camera=new THREE.PerspectiveCamera(76,innerWidth/innerHeight,.1,180);
+ renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;document.body.insertBefore(renderer.domElement,document.body.firstChild);
+ 
+ ambientLight=new THREE.HemisphereLight(0x5a7fa8,0x0a0f18,1.5); scene.add(ambientLight);
+ dirLight=new THREE.DirectionalLight(0xb4e1ff,2.0); dirLight.position.set(-20,30,15); dirLight.castShadow=true; scene.add(dirLight);
+ 
+ floorMesh=box(200,.5,200,mats.floorDark,0,-.3,0);
+ gridMesh=new THREE.GridHelper(200,200,0x00f5ff,0x141f2e); gridMesh.position.y=-.03; scene.add(gridMesh);
+
+ for(let i=0;i<16;i++){
+  let x=(i%4)*28-42, z=Math.floor(i/4)*28-42;
+  box(6,3.5,5,mats.darkRobot,x,1.75,z);
+  let neon=box(5.2,.15,4.2,mat(0x00f5ff,.3,.5,1.2),x,3.55,z);
+  neonLights.push(neon);
+ }
+
+ player=new THREE.Object3D(); player.position.set(0,1.7,14); scene.add(player); player.add(camera); camera.position.set(0,0,0);
+ gunGroup=new THREE.Group(); camera.add(gunGroup); updateGunModel();
+}
+
+// Función para cambiar el tema de la arena según la ronda (Oscura -> Colorida Extravagante -> Apocalíptica Omega)
+function updateArenaTheme(r){
+ if(r>=10 && r<20){
+  // Arena Colorida y Extravagante
+  scene.background.set(0x0d021a);
+  scene.fog.color.set(0x0d021a);
+  ambientLight.color.set(0xff00d4);
+  ambientLight.groundColor.set(0x00ffff);
+  dirLight.color.set(0xff55ff);
+  floorMesh.material.color.set(0x18052e);
+  gridMesh.material.color.set(0xff00aa);
+  neonLights.forEach(n=>n.material.color.set(Math.random()>.5?0xff00d4:0x00ffff));
+ }else if(r>=20){
+  // Arena del Jefe Omega (Rojo Intenso / Apocalíptica)
+  scene.background.set(0x1a0204);
+  scene.fog.color.set(0x1a0204);
+  ambientLight.color.set(0xff2222);
+  ambientLight.groundColor.set(0x220000);
+  dirLight.color.set(0xff4444);
+  floorMesh.material.color.set(0x260408);
+  gridMesh.material.color.set(0xff0033);
+  neonLights.forEach(n=>n.material.color.set(0xff0033));
+ }
+}
+
+function updateGunModel(){
+ while(gunGroup.children.length>0) gunGroup.remove(gunGroup.children[0]);
+ if(currentWeapon===0){
+  // Arma con diseño brillante y visible sobre fondos oscuros
+  box(.22,.2,.55,mats.weaponBody,0,0,0).parent=gunGroup;
+  box(.12,.1,.45,mats.grayRobot,0,.08,-.1).parent=gunGroup;
+  box(.14,.04,.14,mats.weaponNeon,0,.12,-.05).parent=gunGroup; // Franja neón brillante
+  let barrel=new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,.5,10),mats.weaponNeon);
+  barrel.rotation.x=Math.PI/2; barrel.position.set(0,.04,-.38); gunGroup.add(barrel);
+ }else{
+  // Franco con detalles fucsia neón altamente visibles
+  box(.18,.18,.75,mats.weaponBody,0,0,0).parent=gunGroup;
+  box(.12,.14,.3,mats.sniperNeon,0,.12,-.1).parent=gunGroup; // Mira óptica brillante
+  let barrel=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,.7,10),mats.grayRobot);
+  barrel.rotation.x=Math.PI/2; barrel.position.set(0,.03,-.5); gunGroup.add(barrel);
+ }
+}
+
+// Personajes Roblox en GRIS Y NEGRO con excelente porte
+function makeRobot(boss=false, omega=false){
+ const g=new THREE.Group(); let scale=omega?3.2:(boss?2.0:1);
+ function part(geo,material,x,y,z){let o=new THREE.Mesh(geo,material);o.position.set(x*scale,y*scale,z*scale);o.castShadow=true;g.add(o);return o}
+ 
+ let torsoMat=omega?mat(0x0f1115,.2,.9,0xff0055):mats.grayRobot;
+ part(new THREE.BoxGeometry(.9,1.1,.45),torsoMat,0,1.3,0);
+ part(new THREE.BoxGeometry(.5,.5,.5),mats.darkRobot,0,2.05,0);
+ 
+ // Luces en los ojos / visores de los robots
+ let eyeGlow=omega?mat(0xff0033,0,0,2.5):(round>=10?mat(0xff00aa,0,0,2.0):mat(0x00f5ff,0,0,2.0));
+ part(new THREE.BoxGeometry(.34,.1,.08),eyeGlow,0,2.08,-.24);
+
+ for(let s of [-1,1]){
+  part(new THREE.BoxGeometry(.32,.9,.32),mats.darkRobot,s*.62,1.3,0);
+  part(new THREE.BoxGeometry(.36,.95,.38),mats.grayRobot,s*.28,.48,0);
+ }
+
+ if(omega){
+  // Titán Omega grandulón con luces y cañón de armas visible
+  part(new THREE.BoxGeometry(1.6,.25,.4),mat(0xff0033,0,0,2.0),0,2.6,0);
+  part(new THREE.BoxGeometry(.4,.6,.4),mat(0xff0033,0,0,2.0),-.8,2.1,0);
+  part(new THREE.BoxGeometry(.4,.6,.4),mat(0xff0033,0,0,2.0),.8,2.1,0);
+ }
+
+ g.scale.setScalar(scale);
+ let maxHp=omega?1500:(boss?500:50+round*12);
+ 
+ let canvas=document.createElement('canvas'); canvas.width=128; canvas.height=32;
+ let ctx=canvas.getContext('2d');
+ let tex=new THREE.CanvasTexture(canvas);
+ let spriteMat=new THREE.SpriteMaterial({map:tex,transparent:true});
+ let hpSprite=new THREE.Sprite(spriteMat);
+ hpSprite.position.set(0,scale*2.6,0); hpSprite.scale.set(1.4,.35,1);
+ g.add(hpSprite);
+
+ g.userData={
+  boss, omega,
+  health:maxHp, maxHealth:maxHp,
+  speed:omega?1.1:(boss?1.3:1.4+round*.04),
+  attack:omega?22:(boss?12:4+round*.5),
+  fireTimer:1.5+Math.random()*1.5,
+  phase:Math.random()*6,
+  hpTexture:tex, hpContext:ctx, hpSprite
+ };
+ updateMonsterHealthBar(g);
+ return g;
+}
+
+function updateMonsterHealthBar(e){
+ let ctx=e.userData.hpContext;
+ ctx.clearRect(0,0,128,32);
+ ctx.fillStyle='rgba(0,0,0,0.6)'; ctx.fillRect(10,8,108,16);
+ let pct=Math.max(0,e.userData.health/e.userData.maxHealth);
+ ctx.fillStyle=e.userData.omega?'#ff0055':'#00f5ff'; ctx.fillRect(12,10,104*pct,12);
+ e.userData.hpTexture.needsUpdate=true;
+}
+
+function spawnEnemy(boss=false, omega=false){
+ const e=makeRobot(boss,omega), angle=Math.random()*Math.PI*2, dist=omega?30:(boss?24:22+Math.random()*10);
+ e.position.set(Math.cos(angle)*dist,0,Math.sin(angle)*dist);
+ scene.add(e); enemies.push(e);
+}
+
+function showToast(t,d=1.5){$('toast').textContent=t;$('toast').style.opacity=1;toastTimer=d}
+
+function updateHUD(){
+ let w=weapons[currentWeapon];
+ $('hpText').textContent=Math.max(0,Math.ceil(hp)); $('hpBar').style.width=Math.max(0,hp)+'%';
+ $('shieldText').textContent=Math.ceil(shield); $('shieldBar').style.width=Math.max(0,shield*2)+'%';
+ $('roundText').textContent=round; $('roundKills').textContent=roundKills; $('targetKills').textContent=targetKills;
+ $('enemyCount').textContent=enemies.length; $('score').textContent=String(score).padStart(6,'0');
+ $('ammo').textContent=w.ammo; $('reserve').textContent=w.reserve;
+ $('weaponName').textContent=w.name;
+ $('status').textContent=cover?'CUBIERTO':crouch?'AGACHADO':reloading?'RECARGA':hp<30?'CRÍTICO':'LISTO';
+ $('status').style.color=hp<30?'#ff405e':cover?'#00f5ff':'#b7ff3c';
+}
+
+function shoot(){
+ if(!running||gameOver||reloading||shootCooldown>0)return;
+ let w=weapons[currentWeapon];
+ if(w.ammo<=0){playSound('reload'); showToast('SIN MUNICIÓN · PRESIONA R',1); return;}
+ 
+ w.ammo--; shootCooldown=w.cooldown;
+ playSound(currentWeapon===0?'shoot1':'shoot2');
+
+ gunGroup.position.z=-.52; setTimeout(()=>{if(gunGroup)gunGroup.position.z=-.65},60);
+ let flash=new THREE.PointLight(currentWeapon===0?0x00f5ff:0xff2bd6,6,4);
+ flash.position.copy(camera.getWorldPosition(new THREE.Vector3())).add(camera.getWorldDirection(new THREE.Vector3()).multiplyScalar(1));
+ scene.add(flash); effects.push({obj:flash,life:.06});
+
+ raycaster.setFromCamera(center,camera); raycaster.far=200;
+ let intersects=raycaster.intersectObjects(scene.children, true);
+ 
+ for(let hit of intersects){
+  let obj=hit.object;
+  let targetEnemy=null;
+  for(let en of enemies){
+   if(en===obj || en.children.includes(obj) || en.getObjectById(obj.id)){
+    targetEnemy=en; break;
+   }
+  }
+  if(targetEnemy){
+   targetEnemy.userData.health-=w.damage;
+   updateMonsterHealthBar(targetEnemy);
+   score+=30;
+   $('hitmarker').style.opacity=1; setTimeout(()=>$('hitmarker').style.opacity=0,80);
+   if(targetEnemy.userData.health<=0){ destroyEnemy(targetEnemy); }
+   break;
+  }
+ }
+ updateHUD();
+}
+
+function destroyEnemy(e){
+ let boss=e.userData.boss, omega=e.userData.omega;
+ scene.remove(e); enemies=enemies.filter(x=>x!==e);
+ score+=omega?15000:(boss?4000:200);
+ roundKills++;
+
+ for(let i=0;i<12;i++){
+  let p=new THREE.Mesh(new THREE.BoxGeometry(.12,.12,.12),i%2?mats.sniperNeon:mats.weaponNeon);
+  p.position.copy(e.position).add(new THREE.Vector3((Math.random()-.5)*2,Math.random()*2.5,(Math.random()-.5)*2));
+  scene.add(p); effects.push({obj:p,life:.7,fall:true});
+ }
+
+ if(omega){ finish(true); return; }
+
+ if(roundKills>=targetKills){
+  round++; roundKills=0;
+  targetKills=round===20?1:(10+(round-1)*5);
+  
+  if(round>20){finish(true);return;}
+  
+  updateArenaTheme(round);
+  showToast('¡RONDA COMPLETADA! -> RONDA '+round, 2.5);
+  hp=100; shield=50;
+  weapons.forEach(wp=>{wp.reserve=Math.min(300,wp.reserve+40)});
+  
+  enemies.forEach(en=>scene.remove(en));
+  enemies=[];
+ }
+ updateHUD();
+}
+
+// Disparos láser visibles desde los robots hacia el jugador
+function enemyShootLaser(e){
+ playSound('laser');
+ let startPos=e.position.clone().add(new THREE.Vector3(0,e.userData.omega?3.0:1.5,0));
+ let endPos=player.position.clone().add(new THREE.Vector3(0,.3,0));
+ 
+ let geom=new THREE.CylinderGeometry(.04,.04,startPos.distanceTo(endPos),6);
+ let laser=new THREE.Mesh(geom,mats.laserRed);
+ laser.position.copy(startPos.clone().add(endPos).multiplyScalar(0.5));
+ laser.lookAt(endPos);
+ laser.rotateX(Math.PI/2);
+ scene.add(laser);
+ effects.push({obj:laser, life:.12});
+
+ takeDamage(e.userData.attack);
+}
+
+function reload(){
+ let w=weapons[currentWeapon];
+ if(reloading||w.ammo===w.maxAmmo||w.reserve<=0||!running)return;
+ reloading=true; reloadTimer=w.reloadTime; playSound('reload'); showToast('RECARGANDO...',1.2); updateHUD();
+}
+
+function switchWeapon(index){
+ if(reloading)return;
+ currentWeapon=index;
+ document.querySelectorAll('.invSlot').forEach((el,i)=>el.classList.toggle('active',i===index));
+ updateGunModel();
+ if(currentWeapon===1){
+  $('sniperScope').style.display='block'; camera.fov=25;
+ }else{
+  $('sniperScope').style.display='none'; camera.fov=76;
+ }
+ camera.updateProjectionMatrix();
+ updateHUD();
+}
+window.switchWeapon=switchWeapon;
+
+function takeDamage(n){
+ playSound('hurt');
+ if(cover) n*=.3; if(crouch) n*=.7;
+ if(shield>0){let s=Math.min(shield,n); shield-=s; n-=s;}
+ if(n>0) hp-=n;
+ damageFlash=.22; lastDamage=0; updateHUD();
+ if(hp<=0) finish(false);
+}
+
+function finish(win){
+ gameOver=true; running=false; document.exitPointerLock?.();
+ $('endScreen').style.display='flex';
+ $('endTitle').innerHTML=win?'MISIÓN <span>COMPLETA</span>':'MISIÓN <span style="color:#ff315b">FALLIDA</span>';
+ $('endText').textContent=win?`¡Victoria total! Derrotaste al Titán Omega en la ronda 20. Puntuación final: ${score}.`:`Caíste en combate en la ronda ${round}. Puntuación: ${score}. ¡Inténtalo de nuevo!`;
+}
+
+function update(dt){
+ if(!running)return;
+ shootCooldown=Math.max(0,shootCooldown-dt); lastDamage+=dt;
+ 
+ if(lastDamage>3){
+  if(hp<100) hp=Math.min(100,hp+dt*6);
+  if(shield<50) shield=Math.min(50,shield+dt*8);
+ }
+
+ if(reloading){
+  reloadTimer-=dt;
+  if(reloadTimer<=0){
+   let w=weapons[currentWeapon];
+   let needed=w.maxAmmo-w.ammo, take=Math.min(needed,w.reserve);
+   w.ammo+=take; w.reserve-=take; reloading=false; showToast('¡ARMA LISTA!',.7); updateHUD();
+  }
+ }
+
+ let forward=new THREE.Vector3(Math.sin(yaw),0,-Math.cos(yaw)), right=new THREE.Vector3(Math.cos(yaw),0,Math.sin(yaw));
+ let move=new THREE.Vector3();
+ if(keys.KeyW||keys.ArrowUp) move.add(forward);
+ if(keys.KeyS||keys.ArrowDown) move.sub(forward);
+ if(keys.KeyD||keys.ArrowRight) move.add(right);
+ if(keys.KeyA||keys.ArrowLeft) move.sub(right);
+ move.x+=moveTouch.x*forward.x+moveTouch.y*right.x; move.z+=moveTouch.x*forward.z+moveTouch.y*right.z;
+
+ if(move.lengthSq()>0){
+  let speed=cover?1.8:(crouch?2.5:5.0);
+  move.normalize().multiplyScalar(speed*dt);
+  player.position.add(move);
+  player.position.x=THREE.MathUtils.clamp(player.position.x,-90,90);
+  player.position.z=THREE.MathUtils.clamp(player.position.z,-90,90);
+ }
+
+ if(keys.Space&&jumpY<=0){jumpV=7.5;} jumpV-=14*dt; jumpY=Math.max(0,jumpY+jumpV*dt); if(jumpY===0)jumpV=0;
+ crouch=!!(keys.ShiftLeft||keys.ShiftRight);
+ camera.position.y=(crouch?-0.3:0)+jumpY;
+ cover=!!keys.KeyC;
+
+ gunGroup.position.y=(-.32+(crouch?-0.15:0))+Math.sin(clock.elapsedTime*8)*(move.lengthSq()?0.02:0.002);
+
+ enemies.forEach(e=>{
+  e.position.y=Math.sin(clock.elapsedTime*3+e.userData.phase)*.03;
+  let d=new THREE.Vector3().subVectors(player.position,e.position); d.y=0; let dist=d.length();
+  if(dist>2.6){
+   d.normalize(); e.position.addScaledVector(d,e.userData.speed*dt);
+   e.rotation.y=Math.atan2(d.x,d.z);
+  }
+  e.userData.fireTimer-=dt;
+  if(e.userData.fireTimer<=0){
+   enemyShootLaser(e);
+   e.userData.fireTimer=2.0+Math.random()*1.5;
+  }
+  e.userData.hpSprite.quaternion.copy(camera.quaternion);
+ });
+
+ effects.forEach(e=>{e.life-=dt;if(e.fall){e.obj.position.y+=dt*2;e.obj.rotation.x+=dt*5}});
+ effects=effects.filter(e=>{if(e.life<=0){scene.remove(e.obj);return false}return true});
+
+ // APARICIÓN PROGRESIVA: Aparecen poco a poco, no todos de golpe
+ enemySpawnTimer-=dt;
+ let maxEnemiesInField=round===20?1:Math.min(4+Math.floor(round*.4), 8);
+ if(enemySpawnTimer<=0 && enemies.length < maxEnemiesInField && roundKills < targetKills){
+  if(round===20){
+   if(enemies.length===0) spawnEnemy(false,true);
+  }else{
+   spawnEnemy(round>=10&&Math.random()>.5, false);
+  }
+  enemySpawnTimer=2.2;
+  updateHUD();
+ }
+
+ if(damageFlash>0){
+  damageFlash-=dt;
+  $('damage').style.border=`${Math.max(0,30*damageFlash/.2)}px solid rgba(255,20,65,${damageFlash*1.5})`;
+ }
+ if(toastTimer>0){toastTimer-=dt;if(toastTimer<=0)$('toast').style.opacity=0;}
+ updateHUD();
+}
+
+function animate(){
+ requestAnimationFrame(animate);
+ let dt=Math.min(clock.getDelta(),.04);
+ if(running) update(dt);
+ renderer.render(scene,camera);
+}
+
+function startGameInstance(){
+ if(audioCtx===null) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+ if(renderer){renderer.dispose();renderer.domElement.remove();}
+ document.querySelectorAll('canvas').forEach(c=>c.remove());
+ enemies=[]; effects=[];
+ round=1; roundKills=0; targetKills=10; score=0; hp=100; shield=50;
+ weapons[0].ammo=weapons[0].maxAmmo; weapons[1].ammo=weapons[1].maxAmmo;
+ reloading=false; gameOver=false; running=true; yaw=0; pitch=0; keys={};
+ buildWorld(); updateArenaTheme(1); clock=new THREE.Clock(); enemySpawnTimer=0;
+ $('startScreen').style.display='none'; $('endScreen').style.display='none';
+ updateHUD();
+ if(!loopStarted){loopStarted=true; animate();}
+}
+
+$('startBtn').addEventListener('click',()=>{
+ startGameInstance();
+ if(innerWidth>700) renderer.domElement.requestPointerLock?.();
+});
+$('againBtn').addEventListener('click',()=>{
+ startGameInstance();
+ if(innerWidth>700) renderer.domElement.requestPointerLock?.();
+});
+
+document.addEventListener('keydown',e=>{
+ keys[e.code]=true;
+ if(e.code==='KeyR') reload();
+ if(e.code==='Digit1') switchWeapon(0);
+ if(e.code==='Digit2') switchWeapon(1);
+});
+document.addEventListener('keyup',e=>{keys[e.code]=false;});
+
+document.addEventListener('mousemove',e=>{
+ if(document.pointerLockElement&&running){
+  let sens=currentWeapon===1?.0008:.0022;
+  yaw-=e.movementX*sens; pitch-=e.movementY*sens;
+  pitch=THREE.MathUtils.clamp(pitch,-1.2,1.2);
+  player.rotation.y=yaw; camera.rotation.x=pitch;
+ }
+});
+
+document.addEventListener('mousedown',e=>{
+ if(running&&e.button===0&&!e.target.closest(".cibertips-return")){
+  if(innerWidth>700&&!document.pointerLockElement) renderer.domElement.requestPointerLock?.();
+  else shoot();
+ }
+});
+
+document.addEventListener('contextmenu',e=>e.preventDefault());
+window.addEventListener('resize',()=>{if(!camera||!renderer)return;camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+
+function bindHold(id,down,up){
+ let el=$(id);
+ if(!el)return;
+ el.addEventListener('pointerdown',e=>{e.preventDefault();down(e);el.setPointerCapture?.(e.pointerId)});
+ ['pointerup','pointercancel','lostpointercapture'].forEach(ev=>el.addEventListener(ev,e=>{e.preventDefault();up?.(e)}));
+}
+bindHold('shootBtn',()=>shoot());
+bindHold('reloadBtn',()=>reload());
+bindHold('coverBtn',()=>{cover=true;keys.KeyC=true},()=>{cover=false;keys.KeyC=false});
+bindHold('jumpBtn',()=>{keys.Space=true;setTimeout(()=>keys.Space=false,150)});
+bindHold('crouchBtn',()=>{crouch=true;keys.ShiftLeft=true},()=>{crouch=false;keys.ShiftLeft=false});
+})();
+</script>
+</body>
+</html>

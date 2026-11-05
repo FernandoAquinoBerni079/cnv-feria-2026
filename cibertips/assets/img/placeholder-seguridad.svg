@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b132b"/>
+      <stop offset="100%" stop-color="#1c2541"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4cc9f0"/>
+      <stop offset="100%" stop-color="#3a86ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bgGrad)"/>
+  <path d="M50 100 H200 L250 150 H550" stroke="#3a506b" stroke-width="2" fill="none"/>
+  <path d="M50 300 H150 L200 250 H550" stroke="#3a506b" stroke-width="2" fill="none"/>
+  <circle cx="200" cy="100" r="5" fill="#4cc9f0"/>
+  <circle cx="200" cy="300" r="5" fill="#4cc9f0"/>
+  <g transform="translate(250, 110)">
+    <path d="M50 10 L90 30 V90 C90 140 50 170 50 170 C50 170 10 140 10 90 V30 Z" fill="#1c2541" stroke="url(#glow)" stroke-width="4"/>
+    <path d="M40 75 L50 85 L70 60" fill="none" stroke="#4cc9f0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="300" y="320" font-family="'Segoe UI', sans-serif" font-size="20" font-weight="bold" fill="#f8f9fa" text-anchor="middle">NAVEGÁ SEGURO — 1.º BTI</text>
+  <text x="300" y="345" font-family="'Segoe UI', sans-serif" font-size="14" fill="#4cc9f0" text-anchor="middle">Protección y Ciberseguridad Estudiantil</text>
+</svg>
